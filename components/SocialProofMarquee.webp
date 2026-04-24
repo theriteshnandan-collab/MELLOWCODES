@@ -1,0 +1,49 @@
+"use client";
+import { motion } from "framer-motion";
+import { Plus } from "lucide-react";
+
+export default function SocialProofMarquee() {
+  const items = [
+    "Brand Strategy", "Interface Engineering", "Full-Stack Dev", "Motion Design",
+    "SaaS Architecture", "E-Commerce", "Growth Systems", "UX Research",
+  ];
+  
+  return (
+    <div className="relative overflow-hidden py-24 bg-white border-t border-b border-black/5">
+      
+      {/* Editorial Decorative Fades */}
+      <div className="absolute inset-y-0 left-0 w-60 z-10 bg-gradient-to-r from-white via-white/80 to-transparent" />
+      <div className="absolute inset-y-0 right-0 w-60 z-10 bg-gradient-to-l from-white via-white/80 to-transparent" />
+
+      {/* Rotating Background Label */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 opacity-[0.02] pointer-events-none select-none">
+         <span className="text-[15vw] font-black uppercase tracking-[0.5em] text-black">MASTERPIECES</span>
+      </div>
+
+      <motion.div className="flex whitespace-nowrap"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}>
+        {[...Array(2)].map((_, set) => (
+          <div key={set} className="flex items-center">
+            {items.map((item, i) => (
+              <div key={i} className="flex items-center group">
+                <span className="text-[14vh] font-black uppercase leading-none px-16 transition-all duration-700 group-hover:italic group-hover:text-[#FF5C00]" 
+                  style={{ 
+                    fontFamily: "var(--font-space-grotesk)", 
+                    color: "transparent", 
+                    WebkitTextStroke: "1.5px rgba(10,10,10,0.12)",
+                  }}>
+                  {item}
+                </span>
+                <div className="flex items-center gap-4 mx-10">
+                   <Plus size={24} className="text-[#FF5C00] opacity-20 group-hover:opacity-100 group-hover:rotate-90 transition-all duration-700" />
+                   <div className="w-2 h-2 rounded-full bg-black/5 group-hover:bg-[#FF5C00] transition-colors" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}

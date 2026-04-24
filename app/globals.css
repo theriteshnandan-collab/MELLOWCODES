@@ -1,26 +1,249 @@
 @import "tailwindcss";
 
+/* ================================================================
+   MELLOW CODE STUDIOS — Design System v3.0
+   Cosmic Orange × Pure White × Onyx Black
+   ================================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* === BACKGROUNDS (Light Mode focus) === */
+  --bg-0: #FFFFFF;
+  --bg-1: #F8F8F8;
+  --bg-2: #F2F2F2;
+  --bg-3: #EBEBEB;
+
+  /* === COSMIC ORANGE === */
+  --orange-9: #CC4A00;
+  --orange-7: #E65300;
+  --orange-5: #FF5C00; /* Primary Accent */
+  --orange-3: #FF8547;
+  --orange-1: #FFAD8F;
+
+  /* === NEUTRAL / ONYX === */
+  --black:    #0A0A0A;
+  --black-80: rgba(10, 10, 10, 0.8);
+  --black-40: rgba(10, 10, 10, 0.4);
+  --black-10: rgba(10, 10, 10, 0.1);
+  --white:    #FFFFFF;
+
+  /* === TEXT === */
+  --text-main:  #0A0A0A;
+  --text-muted: rgba(10, 10, 10, 0.55);
+  --text-dim:   rgba(10, 10, 10, 0.25);
+  --line:       rgba(10, 10, 10, 0.06);
+
+  /* === GRADIENTS === */
+  --grad-brand:  linear-gradient(135deg, #FF5C00 0%, #FF8547 100%);
+  --grad-text:   linear-gradient(90deg, #0A0A0A 0%, #FF5C00 100%);
+  --grad-scroll: linear-gradient(90deg, #FF5C00 0%, #FF8547 50%, #FFAD8F 100%);
+
+  /* === TYPOGRAPHY === */
+  --font-display: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  --font-body:    var(--font-inter), 'Inter', sans-serif;
+
+  /* === SPACING === */
+  --section-pad: clamp(6rem, 12vw, 15rem);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* =================== RESET =================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; scroll-behavior: auto; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-0);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.04'/%3E%3C/svg%3E");
+  color: var(--text-main);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Standard native cursor restored */
+  cursor: auto;
 }
+@media (pointer: coarse) {
+  /* On touch devices, use default cursor (no custom cursor component shown) */
+  body { cursor: auto; }
+}
+h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); }
+
+/* =================== SCROLLBAR =================== */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FF5C00, #FF8547);
+  border-radius: 4px;
+}
+
+/* =================== SELECTION =================== */
+::selection { background: #FF5C00; color: #FFFFFF; }
+
+/* =================== NOISE OVERLAY =================== */
+.noise-overlay {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9996; opacity: 0.025;
+  background-image: url("https://res.cloudinary.com/dyd911y6h/image/upload/v1614050231/noise_ovmjis.png");
+  background-repeat: repeat;
+}
+
+/* Hardware acceleration hints */
+.will-change-transform {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* =================== GLASS CARD =================== */
+.glass {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(10,10,10,0.05);
+  backdrop-filter: blur(16px);
+}
+
+/* =================== TEXT GRADIENT =================== */
+.text-gradient {
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =================== MAGNETIC BUTTON BASE =================== */
+.mag-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  transition: box-shadow 0.4s ease;
+}
+.mag-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--grad-brand);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.mag-btn:hover::before { opacity: 1; }
+
+/* =================== SECTION FADE-UP UTILITY =================== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =================== CONTACT FORM =================== */
+.form-field {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  padding: 1rem 0 0.75rem;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  color: #0A0A0A;
+  outline: none;
+  transition: border-color 0.3s;
+  resize: none;
+}
+.form-field input:focus,
+.form-field textarea:focus {
+  border-bottom-color: #0A0A0A;
+}
+.form-field label {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgba(0,0,0,0.4);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) + label,
+.form-field textarea:focus + label,
+.form-field textarea:not(:placeholder-shown) + label {
+  top: -0.5rem;
+  font-size: 0.6rem;
+  color: #0A0A0A;
+  letter-spacing: 0.5em;
+}
+
+/* =================== ART TYPE & KINETIC POLISH =================== */
+
+/* Halftone Pattern */
+.halftone {
+  background-image: radial-gradient(rgba(10,10,10,0.15) 1px, transparent 0);
+  background-size: 8px 8px;
+}
+
+/* High-Contrast Curved Sketch Border */
+.sketch-border {
+  border: 1px solid #0A0A0A;
+  border-radius: 4rem; /* Ultra-rounded per user request */
+  position: relative;
+}
+.sketch-border::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1.5px solid rgba(10,10,10,0.08);
+  border-radius: 4.5rem;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Global Conquest Rounding */
+.rounded-conquer {
+  border-radius: 4rem !important;
+}
+.rounded-conquer-sm {
+  border-radius: 2rem !important;
+}
+
+/* Kinetic Glitch Animation */
+@keyframes glitch {
+  0% { clip-path: inset(80% 0 0 0); transform: translate(-2px, -2px); }
+  20% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 2px); }
+  40% { clip-path: inset(40% 0 40% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
+  80% { clip-path: inset(0 0 80% 0); transform: translate(-2px, -2px); }
+  100% { clip-path: inset(80% 0 0 0); transform: translate(0); }
+}
+
+.hover-glitch:hover {
+  animation: glitch 0.2s cubic-bezier(.25,.46,.45,.94) both infinite;
+  color: #FF5C00;
+}
+
+/* Manga-style Speed Lines Utility */
+.speed-lines {
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(10,10,10,0.03) 0px,
+    rgba(10,10,10,0.03) 1px,
+    transparent 1px,
+    transparent 40px
+  );
+}
+
+/* Ink Bleed Filter */
+.ink-filter {
+  filter: contrast(1.1) brightness(1.05) saturate(1.1);
+  transition: filter 0.5s ease;
+}
+.ink-filter:hover {
+  filter: contrast(1.3) brightness(1.1) saturate(1.2) blur(0.5px);
+}
+
