@@ -140,43 +140,40 @@ export default function ProjectShowcase() {
             className="relative w-[70vw] md:w-[50vw] lg:w-[40vw] flex-shrink-0 group"
           >
             {/* Card Frame */}
-            <div className="relative aspect-[4/5] rounded-conquer overflow-hidden bg-white/80 backdrop-blur-2xl border border-black/5 p-24 flex flex-col transition-all duration-1000 shadow-lg hover:shadow-2xl ink-filter sketch-border glow-border-orange">
+            <div className="relative aspect-[4/5] rounded-conquer overflow-hidden bg-white/80 backdrop-blur-2xl border border-black/5 px-16 py-24 md:px-24 md:pt-40 md:pb-32 flex flex-col transition-all duration-1000 shadow-lg hover:shadow-2xl ink-filter sketch-border glow-border-orange">
               
-              <div className="flex justify-between items-start mb-12 px-8">
+              <div className="flex justify-between items-start mb-10 px-4 md:px-8">
                   <div className="flex flex-col gap-3">
                     <h3 className="text-5xl md:text-7xl font-black text-black uppercase leading-none" style={{ fontFamily: "var(--font-space-grotesk)" }}>{p.title}</h3>
                   </div>
-                  <div className="w-20 h-20 rounded-full border border-black/5 flex items-center justify-center group-hover:bg-[#FF5C00] group-hover:border-[#FF5C00] transition-all duration-700">
+                  <div className="w-20 h-20 rounded-full border border-black/5 flex items-center justify-center group-hover:bg-[#FF5C00] group-hover:border-[#FF5C00] transition-all duration-700 flex-shrink-0 ml-4">
                     <ArrowUpRight size={28} className="text-black group-hover:text-white transition-all" />
                   </div>
               </div>
 
-              <div className="relative flex-grow flex items-center justify-center mb-16 overflow-hidden rounded-conquer bg-white border border-black/5 p-12">
+              <div className="relative flex-grow flex items-center justify-center mb-12 overflow-hidden rounded-conquer bg-white border border-black/5 p-8 md:p-12 mx-4 md:mx-8">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#FF5C00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                <div className="relative w-full h-[85%] transform group-hover:scale-110 transition-transform duration-1000 ease-out p-8">
+                <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-1000 ease-out">
                    <Image 
                      src={p.img} 
                      alt={p.title} 
                      fill 
-                     className="object-contain ink-filter drop-shadow-[0_40px_80px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_60px_100px_rgba(255,92,0,0.25)] transition-all duration-1000"
-                     quality={85}
+                     className="object-cover md:object-contain ink-filter drop-shadow-[0_40px_80px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_60px_100px_rgba(255,92,0,0.25)] transition-all duration-1000 rounded-[2rem]"
+                     quality={95}
                    />
                 </div>
               </div>
 
-              <div className="grid grid-cols-12 gap-8 items-end pt-8 border-t border-black/5 px-8">
-                 <div className="col-span-8 flex flex-col gap-6">
-                    <p className="text-black/50 text-base md:text-lg leading-relaxed font-medium">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end pt-8 md:pt-12 border-t border-black/5 px-4 md:px-8">
+                 <div className="md:col-span-12 flex flex-col gap-6">
+                    <p className="text-black/60 text-base md:text-lg leading-relaxed font-medium pr-8">
                        {p.desc}
                     </p>
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-3">
                       {p.tags.map(t => (
-                        <span key={t} className="text-[9px] font-black uppercase tracking-widest text-[#FF5C00] px-4 py-1.5 rounded-full border border-[#FF5C00]/10 bg-[#FF5C00]/5">{t}</span>
+                        <span key={t} className="text-[9px] font-black uppercase tracking-widest text-[#FF5C00] px-4 py-2 rounded-full border border-[#FF5C00]/10 bg-[#FF5C00]/5">{t}</span>
                       ))}
                     </div>
-                 </div>
-                 <div className="col-span-4 flex flex-col items-end gap-4">
-                    {/* Purged View Logic per user request */}
                  </div>
               </div>
             </div>
