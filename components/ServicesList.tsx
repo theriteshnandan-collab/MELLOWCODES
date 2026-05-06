@@ -83,7 +83,7 @@ export default function ServicesList() {
 
           {/* Right: Asset Preview */}
           <div className="hidden lg:block sticky top-40">
-            <div className="relative w-full aspect-[4/5] rounded-conquer overflow-hidden bg-[#F8F8F8] border border-black/5 shadow-2xl p-24 flex items-center justify-center">
+            <div className="relative w-full aspect-[4/5] rounded-conquer overflow-hidden bg-white/80 backdrop-blur-2xl border border-white/20 shadow-2xl p-24 flex items-center justify-center halftone glow-border-orange">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active}

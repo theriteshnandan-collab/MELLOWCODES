@@ -130,8 +130,8 @@ export default function AboutTimeline() {
                   <div className="flex flex-col md:flex-row md:items-center gap-10 relative z-10">
                     <div className="flex flex-col gap-2">
                       <span
-                        className="text-6xl font-black text-[#FF5C00]"
-                        style={{ fontFamily: "var(--font-space-grotesk)" }}
+                        className="text-6xl font-black text-transparent italic"
+                        style={{ fontFamily: "var(--font-space-grotesk)", WebkitTextStroke: "1px #FF5C00" }}
                       >
                         {m.year}
                       </span>

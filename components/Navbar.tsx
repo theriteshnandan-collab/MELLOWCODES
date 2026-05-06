@@ -46,11 +46,10 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
         className="fixed top-0 inset-x-0 z-[100] px-6 lg:px-12 pt-8 pointer-events-none"
       >
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between h-24 px-8 lg:px-12 rounded-conquer border border-black/5 bg-white/70 backdrop-blur-3xl pointer-events-auto transition-all duration-700 shadow-2xl"
+        <div className={`max-w-[1600px] mx-auto flex items-center justify-between h-24 px-8 lg:px-12 rounded-conquer border pointer-events-auto transition-all duration-1000 shadow-2xl ${scrolled ? 'glass-ultra' : 'bg-transparent border-transparent'}`}
           style={{ 
-            borderColor: scrolled ? "rgba(255,92,0,0.3)" : "rgba(10,10,10,0.03)",
-            background: scrolled ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.7)",
-            boxShadow: scrolled ? "0 20px 40px rgba(255,92,0,0.1)" : "0 20px 40px rgba(0,0,0,0.05)"
+            borderColor: scrolled ? "rgba(255,255,255,0.8)" : "transparent",
+            transform: scrolled ? "scale(1.02)" : "scale(1)"
           }}>
           
           {/* Logo */}

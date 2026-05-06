@@ -45,13 +45,15 @@ export default function SideIndex() {
           <div className="relative w-6 h-6 flex items-center justify-center">
              <motion.div 
                animate={{ 
-                 height: active === i ? 32 : 8,
-                 width: active === i ? 3 : 2,
+                 height: active === i ? 40 : 8,
+                 width: active === i ? 4 : 2,
                  backgroundColor: active === i ? "#FF5C00" : "rgba(10,10,10,0.15)",
-                 scale: active === i ? 1.2 : 1
+                 scale: active === i ? 1.3 : 1
                }}
-               className="rounded-full transition-all duration-700 ease-expo"
-               style={{ boxShadow: active === i ? "0 0 15px rgba(255,92,0,0.3)" : "none" }}
+               className="rounded-full transition-all duration-1000 ease-expo"
+               style={{ 
+                 boxShadow: active === i ? "0 0 25px rgba(255,92,0,0.5), 0 0 50px rgba(255,92,0,0.2)" : "none" 
+               }}
              />
              
              {/* Invisible expansion for hover area */}

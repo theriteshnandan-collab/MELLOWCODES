@@ -64,7 +64,7 @@ export default function Hero() {
 
       tl.from(".hero-badge", { x: -60, opacity: 0, duration: 1.2, ease: "expo.out" }, "-=1.4");
       tl.from(subRef.current, { y: 40, opacity: 0, duration: 1, ease: "expo.out" }, "-=1.2");
-      tl.from(ctaRef.current, { y: 40, opacity: 0, duration: 1, ease: "expo.out" }, "-=1");
+      tl.from(ctaRef.current, { scale: 0.9, opacity: 0, duration: 1.2, ease: "elastic.out(1, 0.7)" }, "-=1");
       tl.from(assetRef.current, { scale: 0.5, opacity: 0, rotateZ: 20, duration: 2, ease: "expo.out" }, "-=1.6");
     }, sectionRef);
     return () => ctx.revert();
@@ -89,7 +89,7 @@ export default function Hero() {
       />
       <div className="absolute inset-0 halftone opacity-[0.03] pointer-events-none" />
 
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-40 w-full grid lg:grid-cols-12 gap-20 relative z-10 pt-32">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-40 w-full grid lg:grid-cols-12 gap-20 relative z-10 pt-60 pb-32">
         
         <div className="lg:col-span-8 flex flex-col justify-center">
           {/* Purged Hero Badge per user request */}
@@ -103,19 +103,21 @@ export default function Hero() {
               fontFamily: "var(--font-space-grotesk)", 
               fontSize: "clamp(5rem, 15vw, 14rem)" 
             }}
-            className="font-black leading-[0.78] tracking-[-0.07em] mb-16 text-[#0A0A0A] will-change-transform text-balance"
+            className="font-black leading-[0.78] tracking-[-0.07em] mb-16 text-[#0A0A0A] text-balance"
           >
             <motion.span style={{ y: useTransform(scrollY, [0, 500], [0, -50]) }} className="inline-block">Digital</motion.span><br />
-            <span 
-              ref={narrativeRef}
-              className="inline-block transition-colors duration-700 italic pr-8 hover-glitch"
-              style={{ color: isHovered ? "#0A0A0A" : "#FF5C00", WebkitTextStroke: isHovered ? "2px #0A0A0A" : "none" }}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
+            <motion.span 
+              style={{ y: useTransform(scrollY, [0, 500], [0, 15]) }}
+              className="inline-block transition-colors duration-700 italic pr-8"
             >
-              Narratives
-            </span><br />
-            <motion.span style={{ y: useTransform(scrollY, [0, 500], [0, 50]) }} className="inline-block">redefined.</motion.span>
+              <span
+                style={{ color: "#FF5C00", WebkitTextStroke: "1px #FF5C00" }}
+                className="text-transparent"
+              >
+                Narratives
+              </span>
+            </motion.span><br />
+            <motion.span style={{ y: useTransform(scrollY, [0, 500], [0, 80]) }} className="inline-block">redefined.</motion.span>
           </motion.h1>
 
           <div className="max-w-[650px] grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
@@ -134,11 +136,11 @@ export default function Hero() {
                     <MagneticButton strength={25}>
                       <a
                         href="#contact"
-                        className="group relative flex items-center gap-6 bg-black px-12 py-6 rounded-full overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_60px_rgba(255,92,0,0.25)] transition-shadow duration-500"
+                        className="group relative flex items-center gap-6 bg-black px-12 py-6 rounded-full overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_60px_rgba(255,92,0,0.25)] transition-shadow duration-500 glow-border-orange"
                       >
-                        <div className="absolute inset-0 bg-[#FF5C00] translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500" style={{ transitionTimingFunction: "cubic-bezier(0.19,1,0.22,1)" }} />
-                        <span className="relative z-10 text-white font-black text-sm uppercase tracking-[0.3em]">Launch Project</span>
-                        <ArrowRight size={18} className="relative z-10 text-white group-hover:translate-x-2 transition-transform duration-500" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF5C00] to-[#FF8547] translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500" style={{ transitionTimingFunction: "cubic-bezier(0.19,1,0.22,1)" }} />
+                        <span className="relative z-10 text-white font-black text-sm uppercase tracking-[0.3em] group-hover:text-black transition-colors duration-500">Launch Project</span>
+                        <ArrowRight size={18} className="relative z-10 text-white group-hover:translate-x-2 group-hover:text-black transition-all duration-500" />
                       </a>
                     </MagneticButton>
                     <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-black/30 ml-2">Secure your slot for Q2</span>
@@ -173,6 +175,7 @@ export default function Hero() {
               fill
               className="object-contain p-12 drop-shadow-[0_60px_120px_rgba(255,92,0,0.25)]"
               priority
+              style={{ backfaceVisibility: "hidden", transform: "translateZ(0)" }}
               onLoad={() => ScrollTrigger.refresh()}
             />
           </motion.div>

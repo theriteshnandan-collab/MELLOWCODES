@@ -67,15 +67,15 @@ export default function ProcessGrid() {
               className="group relative flex flex-col h-full"
             >
               {/* Step Card */}
-              <div className="relative aspect-[3/4] rounded-[3rem] bg-[#FBFBFB] border border-black/5 px-20 py-24 flex flex-col justify-between overflow-hidden group-hover:border-[#FF5C00]/20 transition-all duration-700 shadow-sm hover:shadow-2xl">
+              <div className="relative aspect-[3/4] rounded-[3rem] bg-[#FBFBFB] border border-black/5 px-24 py-24 flex flex-col justify-between overflow-hidden group-hover:border-[#FF5C00]/20 transition-all duration-700 shadow-sm hover:shadow-2xl">
                 
                 <div className="flex justify-between items-start relative z-10 px-4">
                   <div className="flex flex-col gap-2">
                     {/* Purged Stage label */}
                     <h3 className="text-3xl font-black text-black uppercase leading-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}>{step.title}</h3>
                   </div>
-                  <div className="w-12 h-12 rounded-full bg-white border border-black/5 flex items-center justify-center text-black/20 group-hover:text-[#FF5C00] transition-colors flex-shrink-0">
-                     <step.icon size={18} />
+                  <div className="w-14 h-14 rounded-full bg-white border border-black/5 flex items-center justify-center text-black/20 group-hover:text-[#FF5C00] transition-colors flex-shrink-0 shadow-sm">
+                     <step.icon size={20} />
                   </div>
                 </div>
 
@@ -87,7 +87,7 @@ export default function ProcessGrid() {
                         src={step.img} 
                         alt={step.title} 
                         fill 
-                        className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.05)] group-hover:drop-shadow-[0_40px_80px_rgba(255,92,0,0.2)] transition-all duration-1000"
+                        className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.05)] group-hover:drop-shadow-[0_40px_80px_rgba(255,92,0,0.2)] transition-all duration-1000 ink-filter"
                       />
                    </div>
                 </div>

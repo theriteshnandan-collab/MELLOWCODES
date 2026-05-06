@@ -77,14 +77,14 @@ export default function Cursor() {
   }, []);
 
   return (
-    <>
+    <div style={{ mixBlendMode: 'difference', zIndex: 9999, pointerEvents: 'none', position: 'fixed', inset: 0 }}>
       {/* Inner dot */}
       <div
         ref={dotRef}
         className="fixed top-0 left-0 z-[9999] pointer-events-none"
         style={{ transform: "translate(-50%, -50%)" }}
       >
-        <div className="w-2 h-2 rounded-full bg-[#FF5C00]" />
+        <div className="w-2 h-2 rounded-full bg-white" />
       </div>
 
       {/* Lagging ring */}
@@ -93,7 +93,7 @@ export default function Cursor() {
         className="fixed top-0 left-0 z-[9998] pointer-events-none"
         style={{ transform: "translate(-50%, -50%)" }}
       >
-        <div className="w-8 h-8 rounded-full border border-[#FF5C00]/60" />
+        <div className="w-8 h-8 rounded-full border border-white/60" />
       </div>
 
       {/* Ghost trail */}
@@ -102,8 +102,8 @@ export default function Cursor() {
         className="fixed top-0 left-0 z-[9997] pointer-events-none"
         style={{ transform: "translate(-50%, -50%)" }}
       >
-        <div className="w-14 h-14 rounded-full bg-[#FF5C00]/5" />
+        <div className="w-14 h-14 rounded-full bg-white/5" />
       </div>
-    </>
+    </div>
   );
 }

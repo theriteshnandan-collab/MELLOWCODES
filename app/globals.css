@@ -79,9 +79,10 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); }
 /* =================== NOISE OVERLAY =================== */
 .noise-overlay {
   position: fixed; inset: 0;
-  pointer-events: none; z-index: 9996; opacity: 0.025;
+  pointer-events: none; z-index: 9996; opacity: 0.035;
   background-image: url("https://res.cloudinary.com/dyd911y6h/image/upload/v1614050231/noise_ovmjis.png");
   background-repeat: repeat;
+  mix-blend-mode: overlay;
 }
 
 /* Hardware acceleration hints */
@@ -96,6 +97,34 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); }
   background: rgba(255,255,255,0.7);
   border: 1px solid rgba(10,10,10,0.05);
   backdrop-filter: blur(16px);
+}
+
+.glass-ultra {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4));
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.glow-border-orange {
+  position: relative;
+}
+.glow-border-orange::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(to bottom right, var(--orange-5), var(--orange-1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.glow-border-orange:hover::before {
+  opacity: 1;
 }
 
 /* =================== TEXT GRADIENT =================== */
@@ -222,10 +251,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); }
   100% { clip-path: inset(80% 0 0 0); transform: translate(0); }
 }
 
-.hover-glitch:hover {
-  animation: glitch 0.2s cubic-bezier(.25,.46,.45,.94) both infinite;
-  color: #FF5C00;
-}
+/* Purged Glitch per user request */
 
 /* Manga-style Speed Lines Utility */
 .speed-lines {

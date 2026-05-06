@@ -35,7 +35,7 @@ export default function Preloader() {
               initial={{ scale: 0.8, opacity: 0, rotate: -10 }}
               animate={{ scale: 1, opacity: 1, rotate: 0 }}
               transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
-              className="w-24 h-24 rounded-[2rem] bg-[#FF5C00] flex items-center justify-center mb-12 shadow-[0_0_100px_rgba(255,92,0,0.3)]"
+              className="w-24 h-24 rounded-conquer bg-[#FF5C00] flex items-center justify-center mb-12 shadow-[0_0_100px_rgba(255,92,0,0.3)]"
             >
               <span className="text-white font-black text-3xl">MC</span>
             </motion.div>
@@ -64,21 +64,22 @@ export default function Preloader() {
             </h1>
           </div>
 
-          {/* Technical Drawing Animation */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-             <svg width="100%" height="100%" viewBox="0 0 1000 1000" fill="none" stroke="white" strokeWidth="0.5">
+          {/* Artistic Sketch Animation */}
+          <div className="absolute inset-0 opacity-[0.08] pointer-events-none">
+             <svg width="100%" height="100%" viewBox="0 0 1000 1000" fill="none" stroke="white" strokeWidth="0.3">
                 <motion.path 
-                  d="M0 500 H1000 M500 0 V1000 M100 100 L900 900 M900 100 L100 900" 
+                  d="M100 100 Q 500 50, 900 100 T 900 900 Q 500 950, 100 900 T 100 100" 
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
-                  transition={{ duration: 3, ease: "easeInOut" }}
+                  transition={{ duration: 4, ease: "easeInOut" }}
                 />
-                <motion.circle 
-                  cx="500" cy="500" r="300" 
+                <motion.path 
+                  d="M300 300 L700 700 M700 300 L300 700" 
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
-                  transition={{ duration: 3, ease: "easeInOut", delay: 0.5 }}
+                  transition={{ duration: 2, ease: "easeInOut", delay: 1 }}
                 />
+                <circle cx="500" cy="500" r="450" strokeDasharray="10 10" stroke="rgba(255,255,255,0.2)" />
              </svg>
           </div>
 

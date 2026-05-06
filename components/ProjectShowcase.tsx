@@ -140,7 +140,7 @@ export default function ProjectShowcase() {
             className="relative w-[70vw] md:w-[50vw] lg:w-[40vw] flex-shrink-0 group"
           >
             {/* Card Frame */}
-            <div className="relative aspect-[4/5] rounded-conquer overflow-hidden bg-[#FBFBFB] border border-black/5 p-24 flex flex-col group-hover:border-[#FF5C00]/40 transition-all duration-1000 shadow-sm hover:shadow-2xl ink-filter sketch-border">
+            <div className="relative aspect-[4/5] rounded-conquer overflow-hidden bg-white/80 backdrop-blur-2xl border border-black/5 p-24 flex flex-col transition-all duration-1000 shadow-lg hover:shadow-2xl ink-filter sketch-border glow-border-orange">
               
               <div className="flex justify-between items-start mb-12 px-8">
                   <div className="flex flex-col gap-3">
@@ -158,7 +158,7 @@ export default function ProjectShowcase() {
                      src={p.img} 
                      alt={p.title} 
                      fill 
-                     className="object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_60px_100px_rgba(255,92,0,0.25)] transition-all duration-1000"
+                     className="object-contain ink-filter drop-shadow-[0_40px_80px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_60px_100px_rgba(255,92,0,0.25)] transition-all duration-1000"
                      quality={85}
                    />
                 </div>

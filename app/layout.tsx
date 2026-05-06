@@ -45,6 +45,7 @@ export default function RootLayout({
         <ScrollProgress />
         <SideIndex />
         <div className="noise-overlay" aria-hidden="true" />
+        <div className="texture-overlay halftone" aria-hidden="true" />
         {children}
       </body>
     </html>
