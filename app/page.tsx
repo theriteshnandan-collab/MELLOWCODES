@@ -14,7 +14,7 @@ export default function Home() {
   
   return (
     <main className="relative bg-white">
-      <Navbar />
+      {/* <Navbar /> */}
       
       <section id="home">
         <Hero />
