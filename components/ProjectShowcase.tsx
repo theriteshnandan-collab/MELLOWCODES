@@ -153,7 +153,7 @@ export default function ProjectShowcase() {
                     </div>
                 </div>
 
-                <div className="relative flex-grow flex items-center justify-center overflow-hidden rounded-[2rem] bg-white border border-black/5 p-6 md:p-8 min-h-[150px]">
+                <div className="relative flex-grow flex items-center justify-center overflow-hidden rounded-3xl bg-white border border-black/5 p-6 md:p-8 min-h-[150px]">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#FF5C00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
                   <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-1000 ease-out">
                      <Image 

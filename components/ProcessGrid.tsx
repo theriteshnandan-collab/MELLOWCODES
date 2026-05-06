@@ -66,7 +66,7 @@ export default function ProcessGrid() {
               transition={{ duration: 1, delay: i * 0.15 }}
               className="group relative flex flex-col h-full"
             >
-              <div className="relative aspect-[3/4] rounded-[3rem] bg-[#FBFBFB] border border-black/5 overflow-hidden group-hover:border-[#FF5C00]/20 transition-all duration-700 shadow-sm hover:shadow-2xl">
+              <div className="relative aspect-[3/4] rounded-3xl bg-[#FBFBFB] border border-black/5 overflow-hidden group-hover:border-[#FF5C00]/20 transition-all duration-700 shadow-sm hover:shadow-2xl">
                 
                 {/* Safe Zone Wrapper */}
                 <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-hidden">
