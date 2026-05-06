@@ -167,7 +167,7 @@ export default function ProcessGrid() {
                         src={step.img} 
                         alt={step.title} 
                         fill 
-                        className="object-contain drop-shadow-[0_40px_80px_rgba(255,92,0,0.3)] ink-filter scale-110 hover:scale-125 hover:-translate-y-8 transition-transform duration-1000 ease-out"
+                        className="object-contain drop-shadow-[0_40px_80px_rgba(255,92,0,0.3)] ink-filter scale-110 transition-transform duration-1000 ease-out"
                       />
                     </motion.div>
                   </div>
