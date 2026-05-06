@@ -38,13 +38,13 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -100, opacity: 0 }}
+        initial={{ y: 100, opacity: 0 }}
         animate={{ 
-          y: visible ? 0 : -120, 
+          y: visible ? 0 : 120, 
           opacity: visible ? 1 : 0 
         }}
         transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-        className="fixed top-0 inset-x-0 z-[100] px-6 lg:px-12 pt-8 pointer-events-none"
+        className="fixed bottom-0 inset-x-0 z-[100] px-6 lg:px-12 pb-8 pointer-events-none"
       >
         <div className={`max-w-[1600px] mx-auto flex items-center justify-between h-24 px-8 lg:px-12 rounded-conquer border pointer-events-auto transition-all duration-1000 shadow-2xl ${scrolled ? 'glass-ultra' : 'bg-transparent border-transparent'}`}
           style={{ 
