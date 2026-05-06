@@ -66,37 +66,38 @@ export default function ProcessGrid() {
               transition={{ duration: 1, delay: i * 0.15 }}
               className="group relative flex flex-col h-full"
             >
-              <div className="relative aspect-[3/4] rounded-[3rem] bg-[#FBFBFB] border border-black/5 p-[40px] pt-[60px] md:p-[60px] md:pt-[70px] flex flex-col justify-between overflow-hidden group-hover:border-[#FF5C00]/20 transition-all duration-700 shadow-sm hover:shadow-2xl">
+              <div className="relative aspect-[3/4] rounded-[3rem] bg-[#FBFBFB] border border-black/5 overflow-hidden group-hover:border-[#FF5C00]/20 transition-all duration-700 shadow-sm hover:shadow-2xl">
                 
-                <div className="flex justify-between items-start relative z-10 px-4">
-                  <div className="flex flex-col gap-2">
-                    {/* Purged Stage label */}
-                    <h3 className="text-3xl font-black text-black uppercase leading-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}>{step.title}</h3>
+                {/* Safe Zone Wrapper */}
+                <div className="absolute inset-0 p-[30px] pt-[50px] md:p-[50px] md:pt-[60px] flex flex-col justify-between overflow-hidden">
+                  <div className="flex justify-between items-start relative z-10 px-2">
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-3xl md:text-4xl font-black text-black uppercase leading-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}>{step.title}</h3>
+                    </div>
+                    <div className="w-14 h-14 rounded-full bg-white border border-black/5 flex items-center justify-center text-black/20 group-hover:text-[#FF5C00] transition-colors flex-shrink-0 shadow-sm ml-4">
+                       <step.icon size={20} />
+                    </div>
                   </div>
-                  <div className="w-14 h-14 rounded-full bg-white border border-black/5 flex items-center justify-center text-black/20 group-hover:text-[#FF5C00] transition-colors flex-shrink-0 shadow-sm">
-                     <step.icon size={20} />
-                  </div>
-                </div>
 
-                {/* Asset: Content containment to prevent overlap */}
-                <div className="relative w-full aspect-square flex items-center justify-center py-8">
-                   <div className="absolute inset-0 bg-white rounded-conquer-sm border border-black/5 scale-90 group-hover:scale-100 transition-transform duration-1000" />
-                   <div className="relative w-[75%] h-[75%] transform group-hover:scale-110 transition-transform duration-1000">
-                      <Image 
-                        src={step.img} 
-                        alt={step.title} 
-                        fill 
-                        className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.05)] group-hover:drop-shadow-[0_40px_80px_rgba(255,92,0,0.2)] transition-all duration-1000 ink-filter"
-                      />
+                  {/* Asset: Content containment to prevent overlap */}
+                  <div className="relative w-full aspect-square flex items-center justify-center py-4 flex-shrink min-h-[100px]">
+                     <div className="absolute inset-0 bg-white rounded-conquer-sm border border-black/5 scale-90 group-hover:scale-100 transition-transform duration-1000" />
+                     <div className="relative w-[75%] h-[75%] transform group-hover:scale-110 transition-transform duration-1000">
+                        <Image 
+                          src={step.img} 
+                          alt={step.title} 
+                          fill 
+                          className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.05)] group-hover:drop-shadow-[0_40px_80px_rgba(255,92,0,0.2)] transition-all duration-1000 ink-filter"
+                        />
+                     </div>
+                  </div>
+
+                   <div className="relative z-10 px-2 mt-auto">
+                      <p className="text-black/50 text-sm md:text-base leading-relaxed font-medium">
+                         {step.desc}
+                      </p>
                    </div>
                 </div>
-
-                 <div className="relative z-10 px-4">
-                    <p className="text-black/50 text-base leading-relaxed font-medium mb-12">
-                       {step.desc}
-                    </p>
-                    {/* Purged Technical Draft label */}
-                 </div>
               </div>
             </motion.div>
           ))}
