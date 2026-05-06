@@ -44,37 +44,28 @@ export default function ServicesList() {
                       style={{ fontFamily: "var(--font-space-grotesk)", transform: active === i ? "translateX(20px)" : "none" }}>
                       {s.title}
                     </h3>
-                    <AnimatePresence>
-                      {active === i && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          className="overflow-hidden"
-                        >
-                          {/* Mobile Image Fallback */}
-                          <div className="lg:hidden relative w-full aspect-video rounded-conquer-sm overflow-hidden bg-[#F8F8F8] border border-black/5 mb-8 mt-4">
-                             <Image 
-                               src={s.img} 
-                               alt={s.title}
-                               fill
-                               className="object-contain p-8 drop-shadow-[0_10px_20px_rgba(0,0,0,0.05)]"
-                             />
-                          </div>
+                    <div className={`transition-all duration-700 ease-out ${active === i ? 'opacity-100 scale-100' : 'opacity-20 scale-[0.98]'}`}>
+                      {/* Mobile Image Fallback */}
+                      <div className={`lg:hidden relative w-full aspect-video rounded-conquer-sm overflow-hidden bg-[#F8F8F8] border border-black/5 mb-8 mt-4 transition-all duration-700 ${active === i ? 'h-auto opacity-100' : 'h-0 opacity-0 overflow-hidden mb-0 mt-0'}`}>
+                         <Image 
+                           src={s.img} 
+                           alt={s.title}
+                           fill
+                           className="object-contain p-8 drop-shadow-[0_10px_20px_rgba(0,0,0,0.05)]"
+                         />
+                      </div>
 
-                          <p className="text-xl text-black/50 leading-relaxed mb-8 max-w-md font-light">
-                            {s.desc}
-                          </p>
-                          <div className="flex flex-wrap gap-3">
-                             {s.tags.map(t => (
-                               <span key={t} className="px-4 py-1.5 rounded-full border border-black/5 text-[10px] font-bold uppercase tracking-widest text-black/40 bg-[#F8F8F8]">
-                                 {t}
-                               </span>
-                             ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                      <p className="text-xl text-black/50 leading-relaxed mb-8 max-w-md font-light">
+                        {s.desc}
+                      </p>
+                      <div className="flex flex-wrap gap-3">
+                         {s.tags.map(t => (
+                           <span key={t} className="px-4 py-1.5 rounded-full border border-black/5 text-[10px] font-bold uppercase tracking-widest text-black/40 bg-[#F8F8F8]">
+                             {t}
+                           </span>
+                         ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -84,33 +75,41 @@ export default function ServicesList() {
           {/* Right: Asset Preview */}
           <div className="hidden lg:block sticky top-40">
             <div className="relative w-full aspect-[4/5] rounded-conquer overflow-hidden bg-white/80 backdrop-blur-2xl border border-white/20 shadow-2xl p-24 flex items-center justify-center halftone glow-border-orange">
-              <AnimatePresence mode="wait">
+              <AnimatePresence>
                 <motion.div
                   key={active}
-                  initial={{ scale: 0.9, opacity: 0, rotate: -5 }}
-                  animate={{ scale: 1,   opacity: 1, rotate: 0 }}
-                  exit={{    scale: 1.1, opacity: 0, rotate: 5 }}
-                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute inset-0 p-20"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                  className="absolute inset-0 p-12 md:p-24 pb-40"
                 >
                   <Image 
                     src={SERVICES[active].img} 
                     alt={SERVICES[active].title}
                     fill
-                    className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
+                    className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.05)] p-8 md:p-12"
                   />
-                  
-                  {/* Floating badge */}
-                  <div className="absolute bottom-10 left-10 p-10 bg-white/90 backdrop-blur-xl rounded-conquer-sm border border-black/5 w-[85%] shadow-xl">
-                    {/* Purged Core Philosophy label */}
-                    <p className="text-2xl font-black text-black leading-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-                      {active === 0 ? "Identify through intent." : 
-                       active === 1 ? "Move with purpose." :
-                       active === 2 ? "Readability as art." : "Dominate the noise."}
-                    </p>
-                  </div>
                 </motion.div>
               </AnimatePresence>
+              
+              {/* Floating badge */}
+              <div className="absolute bottom-10 left-10 p-10 bg-white/90 backdrop-blur-xl rounded-conquer-sm border border-black/5 w-[85%] shadow-xl z-20">
+                <AnimatePresence mode="wait">
+                  <motion.p 
+                    key={active}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-2xl font-black text-black leading-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}
+                  >
+                    {active === 0 ? "Identify through intent." : 
+                     active === 1 ? "Move with purpose." :
+                     active === 2 ? "Readability as art." : "Dominate the noise."}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
 
