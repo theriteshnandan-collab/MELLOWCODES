@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Plus } from "lucide-react";
 import Image from "next/image";
 import MagneticButton from "./MagneticButton";
+import Hero3DAsset from "./Hero3DAsset";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -169,15 +170,7 @@ export default function Hero() {
             className="relative w-full aspect-square scale-125 will-change-transform z-10 rounded-[10rem] overflow-hidden bg-white/50 backdrop-blur-sm border border-black/5 ink-filter shadow-2xl"
           >
             <div className="absolute inset-0 bg-[#FF5C00]/5 blur-[150px] rounded-full" />
-            <Image
-              src="/images/h2.png" 
-              alt="Mellow Architectural Core"
-              fill
-              className="object-contain p-12 drop-shadow-[0_60px_120px_rgba(255,92,0,0.25)]"
-              priority
-              style={{ backfaceVisibility: "hidden", transform: "translateZ(0)" }}
-              onLoad={() => ScrollTrigger.refresh()}
-            />
+            <Hero3DAsset />
           </motion.div>
         </div>
       </div>
