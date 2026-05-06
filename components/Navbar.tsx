@@ -83,12 +83,15 @@ export default function Navbar() {
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-8">
              <div className="h-8 w-px bg-black/5" />
-            <MagneticButton strength={20}>
+            <MagneticButton strength={30}>
               <motion.a href="#contact"
                 whileTap={{ scale: 0.98 }}
-                className="px-12 py-4 rounded-full font-black text-[10px] uppercase tracking-[0.3em] text-white shadow-[0_20px_40px_rgba(255,92,0,0.3)] hover:shadow-[0_25px_60px_rgba(255,92,0,0.4)] transition-all hover:scale-105 inline-block"
-                style={{ background: "#FF5C00" }}>
-                Hire Studio
+                className="group relative flex items-center gap-6 px-10 py-3 rounded-full font-black text-[10px] uppercase tracking-[0.4em] text-white overflow-hidden shadow-xl hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] transition-all duration-700 inline-block bg-black/90 backdrop-blur-2xl border border-white/10"
+              >
+                {/* Light Sweep */}
+                <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] group-hover:translate-x-[50%] transition-transform duration-1000 ease-in-out transform -skew-x-12" />
+                <span className="relative z-10 pt-0.5">Hire Studio</span>
+                <div className="relative z-10 w-2 h-2 rounded-full bg-[#FF5C00] group-hover:scale-150 transition-transform duration-500 shadow-[0_0_10px_#FF5C00]" />
               </motion.a>
             </MagneticButton>
           </div>

@@ -163,68 +163,72 @@ export default function Footer() {
                 className="flex flex-col gap-0"
               >
                 {/* Name field */}
-                <div className="form-field">
+                <div className="mb-12">
                   <input
                     type="text"
                     id="name"
-                    placeholder=" "
+                    placeholder="NAME //"
                     value={form.name}
                     onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
                     required
-                    className="peer"
-                    style={{ color: "#0A0A0A", borderBottomColor: "rgba(0,0,0,0.25)" }}
+                    className="w-full bg-transparent border-b-2 border-black/10 py-6 text-3xl md:text-5xl font-black text-black placeholder:text-black/20 focus:border-black outline-none transition-colors uppercase tracking-tighter"
+                    style={{ fontFamily: "var(--font-space-grotesk)" }}
                   />
-                  <label htmlFor="name">Your Name</label>
                 </div>
 
                 {/* Email field */}
-                <div className="form-field">
+                <div className="mb-12">
                   <input
                     type="email"
                     id="email"
-                    placeholder=" "
+                    placeholder="EMAIL //"
                     value={form.email}
                     onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
                     required
-                    style={{ color: "#0A0A0A", borderBottomColor: "rgba(0,0,0,0.25)" }}
+                    className="w-full bg-transparent border-b-2 border-black/10 py-6 text-3xl md:text-5xl font-black text-black placeholder:text-black/20 focus:border-black outline-none transition-colors uppercase tracking-tighter"
+                    style={{ fontFamily: "var(--font-space-grotesk)" }}
                   />
-                  <label htmlFor="email">Email Address</label>
                 </div>
 
                 {/* Brief field */}
-                <div className="form-field">
+                <div className="mb-16">
                   <textarea
                     id="brief"
-                    placeholder=" "
-                    rows={4}
+                    placeholder="OBJECTIVE //"
+                    rows={2}
                     value={form.brief}
                     onChange={e => setForm(p => ({ ...p, brief: e.target.value }))}
                     required
-                    style={{ color: "#0A0A0A", borderBottomColor: "rgba(0,0,0,0.25)" }}
+                    className="w-full bg-transparent border-b-2 border-black/10 py-6 text-3xl md:text-5xl font-black text-black placeholder:text-black/20 focus:border-black outline-none transition-colors uppercase tracking-tighter resize-none"
+                    style={{ fontFamily: "var(--font-space-grotesk)" }}
                   />
-                  <label htmlFor="brief">Project Brief</label>
                 </div>
 
                 {/* Submit */}
-                <MagneticButton strength={20}>
+                <MagneticButton strength={30}>
                   <motion.button
                     type="submit"
                     disabled={formState === "loading"}
                     whileTap={{ scale: 0.98 }}
-                    className="mt-12 group relative flex items-center gap-8 bg-black text-white px-20 py-8 rounded-conquer font-black text-[13px] uppercase tracking-[0.3em] overflow-hidden self-start shadow-[0_30px_60px_rgba(0,0,0,0.25)] hover:shadow-[0_40px_80px_rgba(0,0,0,0.4)] transition-all duration-700 disabled:opacity-60"
+                    className="group relative flex items-center gap-10 bg-black/90 backdrop-blur-3xl pl-12 pr-4 py-4 rounded-full font-black text-[11px] text-white uppercase tracking-[0.5em] overflow-hidden self-start border border-white/10 hover:border-white/30 transition-all duration-700 disabled:opacity-60 shadow-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
                   >
-                    <div className="absolute inset-0 bg-[#0A0A0A] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-700" />
-                    <span className="relative z-10">
-                      {formState === "loading" ? "Transmitting..." : "Launch Project"}
+                    {/* Light Sweep */}
+                    <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[150%] group-hover:translate-x-[50%] transition-transform duration-1000 ease-in-out transform -skew-x-12" />
+                    
+                    <span className="relative z-10 mt-0.5">
+                      {formState === "loading" ? "TRANSMITTING" : "LAUNCH"}
                     </span>
+                    
                     {formState === "loading" ? (
                       <motion.div
-                        className="relative z-10 w-6 h-6 border-2 border-white/30 border-t-white rounded-full"
+                        className="relative z-10 w-12 h-12 border border-white/30 border-t-white rounded-full flex-shrink-0"
                         animate={{ rotate: 360 }}
                         transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
                       />
                     ) : (
-                      <Send size={20} className="relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                      <div className="relative z-10 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black group-hover:scale-105 transition-transform duration-500 flex-shrink-0">
+                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-500" />
+                      </div>
                     )}
                   </motion.button>
                 </MagneticButton>

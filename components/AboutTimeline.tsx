@@ -87,28 +87,28 @@ export default function AboutTimeline() {
               {/* Purged Our Architecture label */}
             </div>
             <h2
-              className="text-8xl md:text-[10rem] font-black text-black leading-[0.8] tracking-tighter mb-16"
+              className="text-7xl md:text-[9rem] font-black text-black leading-[0.8] tracking-tighter mb-12"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
               The<br />
               <span className="italic text-black/5" style={{ WebkitTextStroke: "1px #0A0A0A" }}>DNA.</span>
             </h2>
-            <p className="text-black/60 text-2xl md:text-3xl font-light leading-relaxed mb-16 max-w-xl">
+            <p className="text-black/60 text-xl md:text-2xl font-light leading-relaxed mb-20 max-w-lg">
               We settle for nothing less than <span className="text-black font-medium border-b-2 border-[#FF5C00]/20 pb-1">absolute market dominance</span>. Every project is a technical conquest where every pixel is intentional.
             </p>
 
             {/* Animated Stats */}
-            <div className="flex items-center gap-10">
+            <div className="flex flex-wrap items-center gap-10 pt-10 border-t border-black/5">
               <AnimatedStat value={50} suffix="+" label="Projects Conquered" />
-              <div className="w-px h-12 bg-black/10" />
+              <div className="hidden md:block w-px h-12 bg-black/10" />
               <AnimatedStat value={12} label="Global Regions" />
-              <div className="w-px h-12 bg-black/10" />
+              <div className="hidden md:block w-px h-12 bg-black/10" />
               <AnimatedStat value={4} label="Years Active" />
             </div>
           </div>
 
           {/* Right: Timeline Grid */}
-          <div className="lg:col-span-7 grid gap-12">
+          <div className="lg:col-span-7 flex flex-col pt-12 lg:pt-0 pl-0 lg:pl-12">
             {milestones.map((m, i) => (
               <motion.div
                 key={m.year}
@@ -116,40 +116,30 @@ export default function AboutTimeline() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true }}
-                className="group relative"
+                className="group relative flex gap-8 md:gap-16 pb-20 border-l-2 border-black/5 ml-4 pl-10 md:pl-16 last:border-transparent last:pb-0"
               >
-                <div className="relative p-16 md:p-24 rounded-conquer bg-[#FBFBFB] border border-black/5 overflow-hidden group-hover:border-[#FF5C00]/30 group-hover:shadow-[0_20px_60px_rgba(255,92,0,0.08)] transition-all duration-700 shadow-sm">
-                  {/* Icon watermark */}
-                  <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-[0.1] transition-opacity duration-700">
-                    <m.icon size={120} className="text-black" />
-                  </div>
-
-                  {/* Orange accent line on hover */}
-                  <div className="absolute left-0 top-8 bottom-8 w-1 rounded-r-full bg-[#FF5C00] scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top" />
-
-                  <div className="flex flex-col md:flex-row md:items-center gap-10 relative z-10">
-                    <div className="flex flex-col gap-2">
-                      <span
-                        className="text-6xl font-black text-transparent italic"
-                        style={{ fontFamily: "var(--font-space-grotesk)", WebkitTextStroke: "1px #FF5C00" }}
-                      >
-                        {m.year}
-                      </span>
-                      <div className="flex items-center gap-3">
-                        <Plus size={14} className="text-black/20" />
-                        {/* Purged Milestone label */}
-                      </div>
-                    </div>
-                    <div className="flex-grow">
-                      <h3
-                        className="text-3xl md:text-4xl font-black text-black uppercase mb-4"
-                        style={{ fontFamily: "var(--font-space-grotesk)" }}
-                      >
-                        {m.title}
-                      </h3>
-                      <p className="text-black/50 text-lg leading-relaxed max-w-md">{m.desc}</p>
-                    </div>
-                  </div>
+                {/* Minimalist Timeline Dot */}
+                <div className="absolute top-0 left-[-6px] w-[10px] h-[10px] rounded-full bg-black/20 group-hover:bg-[#FF5C00] group-hover:scale-150 transition-all duration-500 shadow-[0_0_0_6px_white]" />
+                
+                <div className="flex-shrink-0 w-24 md:w-32 -mt-4">
+                   <span 
+                     className="text-4xl md:text-5xl font-black text-transparent italic tracking-tighter" 
+                     style={{ fontFamily: "var(--font-space-grotesk)", WebkitTextStroke: "1px #FF5C00" }}
+                   >
+                     {m.year}
+                   </span>
+                </div>
+                
+                <div className="flex-grow -mt-2">
+                  <h3 
+                    className="text-2xl md:text-4xl font-black text-black uppercase tracking-tighter mb-4" 
+                    style={{ fontFamily: "var(--font-space-grotesk)" }}
+                  >
+                    {m.title}
+                  </h3>
+                  <p className="text-black/50 text-base md:text-lg leading-relaxed max-w-md font-medium">
+                    {m.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
