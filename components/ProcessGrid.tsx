@@ -71,36 +71,36 @@ export default function ProcessGrid() {
             >
               <motion.div 
                 layoutId={`card-${step.id}`}
-                className="relative aspect-[3/4] rounded-3xl bg-[#FBFBFB] border border-black/5 overflow-hidden group-hover:border-[#FF5C00]/30 transition-all duration-700 shadow-sm hover:shadow-2xl transform group-hover:-translate-y-4 group-hover:scale-[1.03] cursor-pointer"
-                onClick={() => setSelectedId(step.id)}
+                className="relative aspect-[3/4] rounded-3xl bg-[#FBFBFB] border border-black/5 overflow-hidden transition-all duration-700 shadow-sm hover:shadow-xl cursor-pointer"
+                onMouseEnter={() => setSelectedId(step.id)}
               >
                 
                 {/* Safe Zone Wrapper */}
                 <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-hidden">
                   <div className="flex justify-between items-start relative z-10 px-2">
-                    <div className="flex flex-col gap-2 transform group-hover:scale-110 origin-left transition-transform duration-700">
+                    <div className="flex flex-col gap-2 transition-transform duration-700">
                       <motion.h3 layoutId={`title-${step.id}`} className="text-3xl md:text-4xl font-black text-black uppercase leading-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}>{step.title}</motion.h3>
                     </div>
-                    <div className="w-14 h-14 rounded-full bg-white border border-black/5 flex items-center justify-center text-black/20 group-hover:text-white group-hover:bg-[#FF5C00] transition-colors duration-500 flex-shrink-0 shadow-sm ml-4 transform group-hover:scale-110">
+                    <div className="w-14 h-14 rounded-full bg-white border border-black/5 flex items-center justify-center text-black/20 transition-colors duration-500 flex-shrink-0 shadow-sm ml-4">
                        <step.icon size={20} />
                     </div>
                   </div>
 
                   {/* Asset: Content containment to prevent overlap */}
                   <div className="relative w-full aspect-square flex items-center justify-center py-4 flex-shrink min-h-[100px]">
-                     <div className="absolute inset-0 bg-white rounded-[1.5rem] border border-black/5 scale-90 group-hover:scale-[0.98] transition-transform duration-1000 shadow-[0_10px_30px_rgba(0,0,0,0.05)] group-hover:shadow-[0_30px_60px_rgba(255,92,0,0.15)]" />
-                     <motion.div layoutId={`image-${step.id}`} className="relative w-[75%] h-[75%] transform group-hover:scale-[1.3] group-hover:-translate-y-4 transition-all duration-1000 ease-[0.19,1,0.22,1] z-20">
+                     <div className="absolute inset-0 bg-white rounded-[1.5rem] border border-black/5 scale-90 transition-transform duration-1000 shadow-[0_10px_30px_rgba(0,0,0,0.05)]" />
+                     <motion.div layoutId={`image-${step.id}`} className="relative w-[75%] h-[75%] transition-all duration-1000 ease-[0.19,1,0.22,1] z-20">
                         <Image 
                           src={step.img} 
                           alt={step.title} 
                           fill 
-                          className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.05)] group-hover:drop-shadow-[0_40px_80px_rgba(255,92,0,0.25)] transition-all duration-1000 ink-filter"
+                          className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.05)] transition-all duration-1000 ink-filter"
                         />
                      </motion.div>
                   </div>
 
-                   <div className="relative z-10 px-2 mt-auto transform group-hover:scale-105 origin-left transition-transform duration-700">
-                      <motion.p layoutId={`desc-${step.id}`} className="text-black/50 group-hover:text-black/80 transition-colors duration-700 text-sm md:text-base leading-relaxed font-medium">
+                   <div className="relative z-10 px-2 mt-auto transition-transform duration-700">
+                      <motion.p layoutId={`desc-${step.id}`} className="text-black/50 transition-colors duration-700 text-sm md:text-base leading-relaxed font-medium">
                          {step.desc}
                       </motion.p>
                    </div>
