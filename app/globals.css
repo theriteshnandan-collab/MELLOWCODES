@@ -235,10 +235,10 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); }
 
 /* Global Conquest Rounding */
 .rounded-conquer {
-  border-radius: 4rem !important;
+  border-radius: 1rem !important;
 }
 .rounded-conquer-sm {
-  border-radius: 2rem !important;
+  border-radius: 0.5rem !important;
 }
 
 /* Kinetic Glitch Animation */

@@ -69,7 +69,7 @@ export default function ProcessGrid() {
               <div className="relative aspect-[3/4] rounded-[3rem] bg-[#FBFBFB] border border-black/5 overflow-hidden group-hover:border-[#FF5C00]/20 transition-all duration-700 shadow-sm hover:shadow-2xl">
                 
                 {/* Safe Zone Wrapper */}
-                <div className="absolute inset-0 p-[30px] pt-[50px] md:p-[50px] md:pt-[60px] flex flex-col justify-between overflow-hidden">
+                <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-hidden">
                   <div className="flex justify-between items-start relative z-10 px-2">
                     <div className="flex flex-col gap-2">
                       <h3 className="text-3xl md:text-4xl font-black text-black uppercase leading-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}>{step.title}</h3>

@@ -143,7 +143,7 @@ export default function ProjectShowcase() {
             <div className="relative aspect-[4/5] rounded-conquer overflow-hidden bg-white/80 backdrop-blur-2xl border border-black/5 transition-all duration-1000 shadow-lg hover:shadow-2xl ink-filter sketch-border glow-border-orange">
               
               {/* Safe Zone Wrapper to prevent flex squashing */}
-              <div className="absolute inset-0 p-[40px] pt-[60px] md:p-[60px] md:pt-[80px] flex flex-col overflow-hidden">
+              <div className="absolute inset-0 p-8 md:p-12 flex flex-col overflow-hidden">
                 <div className="flex justify-between items-start mb-6 md:mb-10 px-2">
                     <div className="flex flex-col gap-3">
                       <h3 className="text-5xl md:text-6xl lg:text-7xl font-black text-black uppercase leading-none" style={{ fontFamily: "var(--font-space-grotesk)" }}>{p.title}</h3>
