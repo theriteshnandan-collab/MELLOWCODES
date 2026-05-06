@@ -66,8 +66,7 @@ export default function ProcessGrid() {
               transition={{ duration: 1, delay: i * 0.15 }}
               className="group relative flex flex-col h-full"
             >
-              {/* Step Card */}
-              <div className="relative aspect-[3/4] rounded-[3rem] bg-[#FBFBFB] border border-black/5 px-24 py-24 flex flex-col justify-between overflow-hidden group-hover:border-[#FF5C00]/20 transition-all duration-700 shadow-sm hover:shadow-2xl">
+              <div className="relative aspect-[3/4] rounded-[3rem] bg-[#FBFBFB] border border-black/5 p-[40px] pt-[60px] md:p-[60px] md:pt-[70px] flex flex-col justify-between overflow-hidden group-hover:border-[#FF5C00]/20 transition-all duration-700 shadow-sm hover:shadow-2xl">
                 
                 <div className="flex justify-between items-start relative z-10 px-4">
                   <div className="flex flex-col gap-2">

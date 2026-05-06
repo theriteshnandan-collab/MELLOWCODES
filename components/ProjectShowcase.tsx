@@ -140,7 +140,7 @@ export default function ProjectShowcase() {
             className="relative w-[70vw] md:w-[50vw] lg:w-[40vw] flex-shrink-0 group"
           >
             {/* Card Frame */}
-            <div className="relative aspect-[4/5] rounded-conquer overflow-hidden bg-white/80 backdrop-blur-2xl border border-black/5 px-16 py-24 md:px-24 md:pt-40 md:pb-32 flex flex-col transition-all duration-1000 shadow-lg hover:shadow-2xl ink-filter sketch-border glow-border-orange">
+            <div className="relative aspect-[4/5] rounded-conquer overflow-hidden bg-white/80 backdrop-blur-2xl border border-black/5 p-[40px] pt-[60px] md:p-[60px] md:pt-[80px] flex flex-col transition-all duration-1000 shadow-lg hover:shadow-2xl ink-filter sketch-border glow-border-orange">
               
               <div className="flex justify-between items-start mb-10 px-4 md:px-8">
                   <div className="flex flex-col gap-3">
