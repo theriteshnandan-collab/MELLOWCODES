@@ -1,6 +1,7 @@
 "use client";
-import { motion } from "framer-motion";
-import { Plus, Search, Palette, Code, Rocket } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Search, Palette, Code, Rocket, X } from "lucide-react";
 import Image from "next/image";
 
 const steps = [
@@ -35,6 +36,8 @@ const steps = [
 ];
 
 export default function ProcessGrid() {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
   return (
     <section id="process" className="py-60 bg-white relative overflow-hidden">
       <div className="max-w-[1600px] mx-auto px-6 lg:px-32">
@@ -66,13 +69,17 @@ export default function ProcessGrid() {
               transition={{ duration: 1, delay: i * 0.15 }}
               className="group relative flex flex-col h-full"
             >
-              <div className="relative aspect-[3/4] rounded-3xl bg-[#FBFBFB] border border-black/5 overflow-hidden group-hover:border-[#FF5C00]/30 transition-all duration-700 shadow-sm hover:shadow-2xl transform group-hover:-translate-y-4 group-hover:scale-[1.03]">
+              <motion.div 
+                layoutId={`card-${step.id}`}
+                className="relative aspect-[3/4] rounded-3xl bg-[#FBFBFB] border border-black/5 overflow-hidden group-hover:border-[#FF5C00]/30 transition-all duration-700 shadow-sm hover:shadow-2xl transform group-hover:-translate-y-4 group-hover:scale-[1.03] cursor-pointer"
+                onClick={() => setSelectedId(step.id)}
+              >
                 
                 {/* Safe Zone Wrapper */}
                 <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-hidden">
                   <div className="flex justify-between items-start relative z-10 px-2">
                     <div className="flex flex-col gap-2 transform group-hover:scale-110 origin-left transition-transform duration-700">
-                      <h3 className="text-3xl md:text-4xl font-black text-black uppercase leading-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}>{step.title}</h3>
+                      <motion.h3 layoutId={`title-${step.id}`} className="text-3xl md:text-4xl font-black text-black uppercase leading-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}>{step.title}</motion.h3>
                     </div>
                     <div className="w-14 h-14 rounded-full bg-white border border-black/5 flex items-center justify-center text-black/20 group-hover:text-white group-hover:bg-[#FF5C00] transition-colors duration-500 flex-shrink-0 shadow-sm ml-4 transform group-hover:scale-110">
                        <step.icon size={20} />
@@ -82,28 +89,94 @@ export default function ProcessGrid() {
                   {/* Asset: Content containment to prevent overlap */}
                   <div className="relative w-full aspect-square flex items-center justify-center py-4 flex-shrink min-h-[100px]">
                      <div className="absolute inset-0 bg-white rounded-[1.5rem] border border-black/5 scale-90 group-hover:scale-[0.98] transition-transform duration-1000 shadow-[0_10px_30px_rgba(0,0,0,0.05)] group-hover:shadow-[0_30px_60px_rgba(255,92,0,0.15)]" />
-                     <div className="relative w-[75%] h-[75%] transform group-hover:scale-[1.3] group-hover:-translate-y-4 transition-all duration-1000 ease-[0.19,1,0.22,1] z-20">
+                     <motion.div layoutId={`image-${step.id}`} className="relative w-[75%] h-[75%] transform group-hover:scale-[1.3] group-hover:-translate-y-4 transition-all duration-1000 ease-[0.19,1,0.22,1] z-20">
                         <Image 
                           src={step.img} 
                           alt={step.title} 
                           fill 
                           className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.05)] group-hover:drop-shadow-[0_40px_80px_rgba(255,92,0,0.25)] transition-all duration-1000 ink-filter"
                         />
-                     </div>
+                     </motion.div>
                   </div>
 
                    <div className="relative z-10 px-2 mt-auto transform group-hover:scale-105 origin-left transition-transform duration-700">
-                      <p className="text-black/50 group-hover:text-black/80 transition-colors duration-700 text-sm md:text-base leading-relaxed font-medium">
+                      <motion.p layoutId={`desc-${step.id}`} className="text-black/50 group-hover:text-black/80 transition-colors duration-700 text-sm md:text-base leading-relaxed font-medium">
                          {step.desc}
-                      </p>
+                      </motion.p>
                    </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
 
       </div>
+
+      {/* Center Screen Expansion Modal */}
+      <AnimatePresence>
+        {selectedId && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-white/60 backdrop-blur-xl"
+            onClick={() => setSelectedId(null)}
+          >
+            {(() => {
+              const step = steps.find(s => s.id === selectedId);
+              if (!step) return null;
+              return (
+                <motion.div
+                  layoutId={`card-${step.id}`}
+                  className="relative w-full max-w-[1200px] h-[80vh] min-h-[600px] rounded-[3rem] bg-[#FBFBFB] border border-black/5 overflow-hidden shadow-2xl flex flex-col md:flex-row cursor-default"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button 
+                    onClick={() => setSelectedId(null)}
+                    className="absolute top-8 right-8 z-50 w-16 h-16 rounded-full bg-white border border-black/5 flex items-center justify-center text-black hover:bg-[#FF5C00] hover:text-white transition-all duration-500 shadow-lg hover:scale-110"
+                  >
+                    <X size={28} />
+                  </button>
+
+                  <div className="flex-1 p-12 md:p-24 flex flex-col justify-center gap-8 relative z-10">
+                     <div className="flex items-center gap-6 mb-4">
+                        <div className="w-16 h-16 rounded-full bg-[#FF5C00]/10 flex items-center justify-center text-[#FF5C00]">
+                           <step.icon size={32} />
+                        </div>
+                        <span className="text-2xl font-black text-black/20 italic tracking-widest">{step.id}</span>
+                     </div>
+                     <motion.h3 
+                       layoutId={`title-${step.id}`} 
+                       className="text-6xl md:text-[6rem] font-black text-black uppercase leading-[0.85] tracking-tighter" 
+                       style={{ fontFamily: "var(--font-space-grotesk)" }}
+                     >
+                       {step.title}
+                     </motion.h3>
+                     <motion.p 
+                       layoutId={`desc-${step.id}`} 
+                       className="text-black/60 text-2xl md:text-3xl leading-relaxed font-medium max-w-2xl mt-8"
+                     >
+                       {step.desc}
+                     </motion.p>
+                  </div>
+
+                  <div className="flex-1 relative flex items-center justify-center p-12 bg-white/50">
+                    <div className="absolute inset-12 bg-white rounded-[4rem] border border-black/5 shadow-[0_20px_60px_rgba(0,0,0,0.05)]" />
+                    <motion.div layoutId={`image-${step.id}`} className="relative w-[90%] h-[90%] z-20">
+                      <Image 
+                        src={step.img} 
+                        alt={step.title} 
+                        fill 
+                        className="object-contain drop-shadow-[0_40px_80px_rgba(255,92,0,0.3)] ink-filter scale-110 hover:scale-125 hover:-translate-y-8 transition-transform duration-1000 ease-out"
+                      />
+                    </motion.div>
+                  </div>
+                </motion.div>
+              );
+            })()}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
