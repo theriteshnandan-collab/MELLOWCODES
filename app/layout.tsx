@@ -32,6 +32,7 @@ import Preloader from "@/components/Preloader";
 import ScrollProgress from "@/components/ScrollProgress";
 import SideIndex from "@/components/SideIndex";
 import SmoothScroll from "@/components/SmoothScroll";
+import CustomCursor from "@/components/CustomCursor";
 
 export default function RootLayout({
   children,
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <SmoothScroll />
+        <CustomCursor />
         <ScrollProgress />
         <SideIndex />
         <div className="noise-overlay" aria-hidden="true" />

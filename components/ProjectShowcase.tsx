@@ -1,213 +1,164 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight, Plus } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const PROJECTS = [
-  {
-    id: "01",
-    title: "Lumina",
-    tags: ["Product", "3D"],
-    img: "/images/p1.png",
-    color: "#F3F3F3",
-    desc: "Redefining the perception of light through hand-drawn interface architectures."
-  },
-  {
-    id: "02",
-    title: "Flux",
-    tags: ["SaaS", "Motion"],
-    img: "/images/p2.png",
-    color: "#EFEFEF",
-    desc: "A fluid ecosystem for high-fidelity technical logic and data flow."
-  },
-  {
-    id: "03",
-    title: "Atlas",
-    tags: ["Platform", "Branding"],
-    img: "/images/p3.png",
-    color: "#F8F8F8",
-    desc: "Mapping the digital landscape with bespoke architectural precision."
-  },
-  {
-    id: "04",
-    title: "Kage",
-    tags: ["Web3", "Identity"],
-    img: "/images/p4.png",
-    color: "#F0F0F0",
-    desc: "The shadow protocol for the next generation of digital conquerors."
-  },
+  { id: "01", title: "Lumina", tags: ["UI/UX", "Mobile"], img: "/images/p1_v2.png", desc: "Forging high-fidelity mobile ecosystems with a focus on glassmorphism and elite user narrative." },
+  { id: "02", title: "Flux",   tags: ["3D", "SaaS"],   img: "/images/p2_v2.png", desc: "A liquid data visualization engine engineered for high-performance enterprise decision making." },
+  { id: "03", title: "Atlas",  tags: ["Branding", "ID"], img: "/images/p3_v2.png", desc: "Architectural brand identity systems that establish absolute market authority through minimalism." },
+  { id: "04", title: "Kage",   tags: ["Web3", "Crypto"], img: "/images/p4_v2.png", desc: "The dark-mode technical interface for the next generation of sovereign digital finance." },
 ];
 
 export default function ProjectShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Ensure all assets are loaded before calculating scroll width
-    const handleLoad = () => {
-      ScrollTrigger.refresh();
-    };
-
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-    }
-
-    const ctx = gsap.context(() => {
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
       if (!containerRef.current || !sectionRef.current) return;
 
-      const scrollWidth = containerRef.current.scrollWidth;
-      const windowWidth = window.innerWidth;
+      const totalWidth = containerRef.current.scrollWidth;
+      const scrollDistance = totalWidth - window.innerWidth;
 
       gsap.to(containerRef.current, {
-        x: () => -(scrollWidth - windowWidth),
+        x: -scrollDistance,
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
           pin: true,
-          scrub: 2,
+          scrub: 1,
           start: "top top",
-          end: () => "+=" + (scrollWidth - windowWidth),
+          end: () => `+=${scrollDistance}`,
           invalidateOnRefresh: true,
-          fastScrollEnd: true,
+          anticipatePin: 1,
         },
       });
 
-      gsap.to(".bg-text", {
-        x: -500,
+      gsap.from(".project-card", {
+        opacity: 0,
+        y: 60,
+        duration: 1,
+        stagger: 0.1,
         scrollTrigger: {
           trigger: sectionRef.current,
-          scrub: 1,
-          start: "top bottom",
-          end: "bottom top",
+          start: "top 80%",
         }
       });
     }, sectionRef);
 
-    // Final safety refresh
-    const timer = setTimeout(() => ScrollTrigger.refresh(), 1000);
-
-    return () => {
-      window.removeEventListener("load", handleLoad);
-      ctx.revert();
-      clearTimeout(timer);
-    };
+    ScrollTrigger.refresh();
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} id="work" className="relative h-screen bg-[#111111] overflow-hidden">
+    <section ref={sectionRef} id="work" className="relative h-screen bg-white overflow-hidden">
+      
+      <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 opacity-[0.02] pointer-events-none select-none z-0">
+        <span className="text-[40vw] font-black uppercase tracking-[0.2em] text-black whitespace-nowrap block text-center">
+          SELECTED
+        </span>
+      </div>
 
-      {/* Purged Background Kinetic Text per user request */}
-
-
-      <div ref={containerRef} className="flex h-screen items-center px-[10vw] gap-[12vw] relative z-10 w-max will-change-transform">
+      <div 
+        ref={containerRef} 
+        className="flex flex-row flex-nowrap h-screen items-center px-[10vw] gap-[12vw] relative z-10 w-max min-w-full will-change-transform"
+      >
 
         {/* Intro */}
-        <div className="w-[450px] md:w-[600px] flex-shrink-0 flex flex-col justify-center pr-24">
-          <div className="flex items-center gap-4 mb-10">
-            <div className="w-12 h-px bg-[#FF5C00]" />
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#FF5C00]">Selected Masterpieces</span>
+        <div className="w-[500px] md:w-[700px] flex-shrink-0 flex flex-col justify-center pr-32">
+          <div className="flex items-center gap-6 mb-12">
+            <div className="w-16 h-px bg-[#FF5C00]" />
+            <span className="text-[11px] font-black uppercase tracking-[0.5em] text-[#FF5C00]">Our Masterpieces</span>
           </div>
-          <h2 className="text-8xl md:text-[10rem] font-black text-white leading-[0.8] tracking-tighter mb-16"
+          <h2 className="text-8xl md:text-[12rem] font-black text-black leading-[0.8] tracking-tighter mb-20"
             style={{ fontFamily: "var(--font-space-grotesk)" }}>
             Our<br />
-            <span className="italic text-white/5" style={{ WebkitTextStroke: "1px #FFFFFF" }}>Mastery.</span>
+            <span className="italic text-[#FF5C00] chromatic-aberration">Mastery.</span>
           </h2>
-          <p className="text-white/40 text-2xl leading-relaxed font-light max-w-sm mb-12">
-            We sculpt technical narratives that conquer market attention and redefine digital boundaries.
+          <p className="text-black/60 text-2xl leading-relaxed font-light max-w-sm">
+            Sculpting technical narratives that conquer market attention and redefine digital boundaries.
           </p>
-
-          <div className="flex items-center gap-6 opacity-30">
-            <div className="w-10 h-[2px] bg-white" />
-            <span className="text-[9px] font-black uppercase tracking-[0.6em] text-white">Scroll to Conquer</span>
-          </div>
         </div>
 
         {/* Project Cards */}
-        {PROJECTS.map((p, i) => (
-          <motion.div
+        {PROJECTS.map((p) => (
+          <div
             key={p.id}
-            initial={{ opacity: 0, scale: 0.9, y: 50 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0, 0.55, 0.45, 1] }}
-            viewport={{ margin: "-100px" }}
-            className="relative w-[70vw] md:w-[50vw] lg:w-[40vw] flex-shrink-0 group"
+            className="project-card relative w-[75vw] md:w-[55vw] lg:w-[45vw] flex-shrink-0 group"
           >
-            {/* Card Frame */}
-            <div className="relative aspect-[4/5] rounded-conquer overflow-hidden bg-white/5 backdrop-blur-2xl border border-white/10 transition-all duration-1000 shadow-lg hover:shadow-2xl ink-filter sketch-border glow-border-orange">
-
-              {/* Safe Zone Wrapper to prevent flex squashing */}
-              <div className="absolute inset-0 p-8 md:p-12 flex flex-col overflow-hidden">
-                <div className="flex justify-between items-start mb-6 md:mb-10 px-2">
-                  <div className="flex flex-col gap-3">
-                    <h3 className="text-5xl md:text-6xl lg:text-7xl font-black text-white uppercase leading-none" style={{ fontFamily: "var(--font-space-grotesk)" }}>{p.title}</h3>
-                  </div>
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-[#FF5C00] group-hover:border-[#FF5C00] transition-all duration-700 flex-shrink-0 ml-4">
-                    <ArrowUpRight className="w-6 h-6 md:w-7 md:h-7 text-white group-hover:text-white transition-all" />
-                  </div>
-                </div>
-
-                <div className="relative flex-grow flex items-center justify-center overflow-hidden min-h-[150px]">
-                  <div className="relative w-[85%] md:w-[75%] lg:w-[65%] aspect-square rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center p-6 md:p-8 shadow-sm">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#FF5C00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-3xl" />
-                    <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-1000 ease-out">
-                      <Image
-                        src={p.img}
-                        alt={p.title}
-                        fill
-                        className="object-contain ink-filter drop-shadow-[0_40px_80px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_60px_100px_rgba(255,92,0,0.25)] transition-all duration-1000 rounded-3xl scale-[1.2]"
-                        quality={95}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-4 mt-6 md:mt-8 pl-4 md:pl-6 pr-2">
-                  <p className="text-white/60 text-sm md:text-base lg:text-lg leading-relaxed font-medium">
-                    {p.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-2 md:gap-3">
+            {/* Main Card Body */}
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#FAFAFA] border border-black/5 transition-all duration-1000 shadow-xl hover:shadow-[0_40px_80px_rgba(255,92,0,0.1)] group-hover:border-[#FF5C00]/20 flex flex-col p-12 md:p-16">
+              
+              {/* Top Header - Always Visible */}
+              <div className="relative z-30 flex justify-between items-start mb-6 transition-transform duration-700 group-hover:-translate-y-2">
+                <div className="flex flex-col gap-4">
+                  <h3 className="text-6xl md:text-8xl font-black text-black uppercase leading-none tracking-tighter" style={{ fontFamily: "var(--font-space-grotesk)" }}>{p.title}</h3>
+                  <div className="flex flex-wrap gap-3">
                     {p.tags.map(t => (
-                      <span key={t} className="text-[9px] font-black uppercase tracking-widest text-[#FF5C00] px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-[#FF5C00]/10 bg-[#FF5C00]/5">{t}</span>
+                      <span key={t} className="text-[10px] font-black uppercase tracking-widest text-[#FF5C00] opacity-40 group-hover:opacity-100 transition-opacity duration-700">{t}</span>
                     ))}
                   </div>
                 </div>
+                <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl border border-black/5 flex items-center justify-center bg-white shadow-sm group-hover:bg-[#FF5C00] group-hover:rotate-12 transition-all duration-700">
+                  <ArrowUpRight className="w-8 h-8 text-black group-hover:text-white transition-all duration-700" />
+                </div>
               </div>
+
+              {/* Central Content Area - EXPANDS INSIDE LIMITS */}
+              <div className="relative flex-grow flex items-center justify-center overflow-hidden rounded-[2rem] bg-white border border-black/5 transition-all duration-1000 group-hover:m-0 group-hover:rounded-none">
+                {/* 
+                   Expansion Logic:
+                   The image container is usually 'inset-4' but on hover it fills the card (m-0).
+                   However, we keep the z-index of text higher to prevent 'undershadowing'.
+                */}
+                <div className="absolute inset-0 transition-transform duration-1000 group-hover:scale-110">
+                  <Image
+                    src={p.img}
+                    alt={p.title}
+                    fill
+                    className="object-contain p-8 md:p-12 transition-all duration-1000 group-hover:p-0 group-hover:scale-105"
+                  />
+                </div>
+              </div>
+
+              {/* Bottom Footer - Always Visible */}
+              <div className="relative z-30 mt-8 transition-transform duration-700 group-hover:translate-y-2">
+                <p className="text-black/60 text-xl md:text-2xl leading-tight font-medium max-w-md group-hover:text-black transition-colors duration-700">
+                  {p.desc}
+                </p>
+              </div>
+
+              {/* Hover Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-20" />
             </div>
-          </motion.div>
+          </div>
         ))}
 
         {/* Final Conquest CTA Card */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2 }}
-          className="relative w-[80vw] md:w-[60vw] lg:w-[45vw] flex-shrink-0"
-        >
-          <a href="#contact" className="group block relative aspect-[4/5] rounded-conquer overflow-hidden bg-black p-16 md:p-24 flex flex-col justify-center items-center text-center">
-            <div className="absolute inset-0 bg-[#FF5C00] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-700 ease-expo" />
-            <div className="relative z-10 flex flex-col items-center gap-10">
-              <div className="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center group-hover:border-black/20 transition-all">
+        <div className="project-card relative w-[80vw] md:w-[60vw] lg:w-[45vw] flex-shrink-0">
+          <a href="#contact" className="group block relative aspect-[4/5] rounded-3xl overflow-hidden bg-black p-16 md:p-24 flex flex-col justify-center items-center text-center">
+            <div className="absolute inset-0 bg-[#FF5C00] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-700" />
+            <div className="relative z-10 flex flex-col items-center gap-12">
+              <div className="w-24 h-24 rounded-3xl border border-white/20 flex items-center justify-center group-hover:border-black/20 group-hover:rotate-[30deg] transition-all duration-700 bg-white/5 backdrop-blur-xl">
                 <ArrowUpRight size={40} className="text-[#FF5C00] group-hover:text-black transition-all" />
               </div>
-              <h3 className="text-6xl md:text-8xl font-black text-white group-hover:text-black uppercase leading-[0.85] tracking-tighter" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+              <h3 className="text-6xl md:text-9xl font-black text-white group-hover:text-black uppercase leading-[0.8] tracking-tighter" style={{ fontFamily: "var(--font-space-grotesk)" }}>
                 Start Your<br />Conquest.
               </h3>
-              <p className="text-white/40 group-hover:text-black/60 text-lg font-light max-w-[280px]">
-                Ready to redefine your digital narrative? Let&apos;s build the future together.
+              <p className="text-white/40 group-hover:text-black/60 text-2xl font-light max-w-[320px]">
+                Ready to redefine your digital narrative?
               </p>
             </div>
           </a>
-        </motion.div>
+        </div>
 
         <div className="w-[45vw] flex-shrink-0 flex flex-col justify-center pl-32">
-          <h2 className="text-[12vw] font-black text-white leading-none tracking-tighter opacity-10" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+          <h2 className="text-[14vw] font-black text-black leading-none tracking-tighter opacity-[0.04] uppercase" style={{ fontFamily: "var(--font-space-grotesk)" }}>
             CONQUER<br />NEXT.
           </h2>
         </div>

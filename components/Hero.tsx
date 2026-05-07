@@ -3,9 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Plus } from "lucide-react";
-import Image from "next/image";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { ArrowRight, MoveRight, Command } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 import Hero3DAsset from "./Hero3DAsset";
 
@@ -17,56 +16,68 @@ export default function Hero() {
   const subRef     = useRef<HTMLParagraphElement>(null);
   const ctaRef     = useRef<HTMLDivElement>(null);
   const assetRef   = useRef<HTMLDivElement>(null);
-  const narrativeRef = useRef<HTMLSpanElement>(null);
   
-  const [isHovered, setIsHovered] = useState(false);
   const { scrollY } = useScroll();
 
-  // Scroll-linked transforms for "Top Tier" depth
-  const titleY = useTransform(scrollY, [0, 500], [0, -100]);
-  const titleScale = useTransform(scrollY, [0, 500], [1, 0.95]);
-  const assetRotate = useTransform(scrollY, [0, 500], [0, 15]);
-  const gridOpacity = useTransform(scrollY, [0, 400], [0.08, 0]);
+  const titleY = useTransform(scrollY, [0, 500], [0, -120]);
+  const titleScale = useTransform(scrollY, [0, 500], [1, 0.92]);
+  const assetRotate = useTransform(scrollY, [0, 500], [0, 25]);
+  const gridOpacity = useTransform(scrollY, [0, 400], [0.12, 0]);
+
+  const mouseX = useSpring(0, { stiffness: 100, damping: 30 });
+  const mouseY = useSpring(0, { stiffness: 100, damping: 30 });
 
   useEffect(() => {
-    // High-performance GSAP mouse tracking
-    const xTo = gsap.quickTo(assetRef.current, "x", { duration: 0.8, ease: "power3" });
-    const yTo = gsap.quickTo(assetRef.current, "y", { duration: 0.8, ease: "power3" });
-    const rYTo = gsap.quickTo(assetRef.current, "rotateY", { duration: 0.8, ease: "power3" });
-    const rXTo = gsap.quickTo(assetRef.current, "rotateX", { duration: 0.8, ease: "power3" });
-    
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 50;
-      const y = (e.clientY / window.innerHeight - 0.5) * 50;
-      xTo(x); yTo(y);
-      rYTo(x * 1.2); rXTo(y * -1.2);
+      const { clientX, clientY } = e;
+      mouseX.set(clientX);
+      mouseY.set(clientY);
+      
+      const x = (clientX / window.innerWidth - 0.5) * 60;
+      const y = (clientY / window.innerHeight - 0.5) * 60;
+      gsap.to(assetRef.current, {
+        x, y,
+        rotateY: x * 1.5,
+        rotateX: y * -1.5,
+        duration: 1.2,
+        ease: "power2.out"
+      });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.2 });
+      const tl = gsap.timeline({ delay: 0.5 });
 
       if (h1Ref.current) {
         const st = new SplitType(h1Ref.current, { types: "lines,chars" });
-        gsap.set(st.chars, { y: 150, opacity: 0, rotateX: -60 });
+        gsap.set(st.chars, { 
+          y: 100, 
+          opacity: 0, 
+          rotateX: -90,
+          filter: "blur(10px)"
+        });
+        
         tl.to(st.chars, { 
           y: 0, 
           opacity: 1, 
           rotateX: 0, 
-          duration: 1.8, 
+          filter: "blur(0px)",
+          duration: 1.5, 
           ease: "expo.out", 
-          stagger: 0.02 
+          stagger: {
+            amount: 0.8,
+            from: "random"
+          }
         });
       }
 
-      tl.from(".hero-badge", { x: -60, opacity: 0, duration: 1.2, ease: "expo.out" }, "-=1.4");
-      tl.from(subRef.current, { y: 40, opacity: 0, duration: 1, ease: "expo.out" }, "-=1.2");
-      tl.from(ctaRef.current, { scale: 0.9, opacity: 0, duration: 1.2, ease: "elastic.out(1, 0.7)" }, "-=1");
-      tl.from(assetRef.current, { scale: 0.5, opacity: 0, rotateZ: 20, duration: 2, ease: "expo.out" }, "-=1.6");
+      tl.from(subRef.current, { y: 30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.8");
+      tl.from(ctaRef.current, { y: 20, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.6");
+      tl.from(assetRef.current, { scale: 0.8, opacity: 0, duration: 2, ease: "expo.out" }, "-=1.5");
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -75,165 +86,107 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-[110vh] flex items-center overflow-hidden bg-[#111111]"
+      className="relative min-h-screen flex items-center overflow-hidden bg-[#0A0A0A] cursor-none"
     >
+      {/* Dynamic Cinematic Spotlight */}
       <motion.div 
-        className="absolute inset-0 pointer-events-none speed-lines"
+        className="fixed inset-0 z-0 pointer-events-none opacity-50"
+        style={{
+          background: useTransform(
+            [mouseX, mouseY],
+            ([x, y]) => `radial-gradient(800px circle at ${x}px ${y}px, rgba(255, 92, 0, 0.12), transparent 80%)`
+          )
+        }}
+      />
+
+      {/* Blueprint Grid Detail */}
+      <motion.div 
+        className="absolute inset-0 pointer-events-none"
         style={{ 
           opacity: gridOpacity,
           backgroundImage: `
-            linear-gradient(rgba(255,92,0,0.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,92,0,0.15) 1px, transparent 1px)
+            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
           `,
-          backgroundSize: "200px 200px"
+          backgroundSize: "60px 60px"
         }} 
       />
-      <div className="absolute inset-0 halftone opacity-[0.03] pointer-events-none" />
 
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-40 w-full grid lg:grid-cols-12 gap-20 relative z-10 pt-60 pb-32">
+
+
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-40 w-full grid lg:grid-cols-12 gap-20 relative z-10 pt-40 pb-20">
         
         <div className="lg:col-span-8 flex flex-col justify-center">
-          {/* Purged Hero Badge per user request */}
-
+          
+          <div className="flex items-center gap-4 mb-12 group">
+             <div className="w-1.5 h-1.5 rounded-full bg-[#FF5C00] shadow-[0_0_15px_#FF5C00] animate-pulse" />
+             <span className="text-[10px] font-black uppercase tracking-[0.6em] text-white/40 group-hover:text-[#FF5C00] transition-colors duration-500 cursor-default">Open for Conquest</span>
+          </div>
 
           <motion.h1
             ref={h1Ref}
-            style={{ 
-              y: titleY, 
-              scale: titleScale,
-              fontFamily: "var(--font-space-grotesk)", 
-            }}
-            className="font-black leading-[0.8] mb-16 text-white"
+            style={{ y: titleY, scale: titleScale, fontFamily: "var(--font-space-grotesk)" }}
+            className="font-black leading-[0.85] mb-12 text-white"
           >
             <div className="flex flex-col">
-              <motion.span 
-                style={{ 
-                  y: useTransform(scrollY, [0, 500], [0, -100]),
-                  fontSize: "clamp(5rem, 16vw, 15rem)",
-                  color: "#AD2524"
-                }} 
-                className="inline-block italic tracking-[-0.15em]"
-              >
-                MELLOW
-              </motion.span>
-              <motion.span 
-                style={{ 
-                  y: useTransform(scrollY, [0, 500], [0, -60]),
-                  fontSize: "clamp(5rem, 16vw, 15rem)",
-                  color: "#AD2524"
-                }} 
-                className="inline-block italic tracking-[-0.15em]"
-              >
-                CODE
-              </motion.span>
+              <span className="inline-block italic tracking-[-0.15em] text-[#AD2524] text-[clamp(5rem,16vw,15rem)] chromatic-aberration">MELLOW</span>
+              <span className="inline-block italic tracking-[-0.15em] text-[#AD2524] text-[clamp(5rem,16vw,15rem)] chromatic-aberration">CODE</span>
               
-              <div className="flex flex-col mt-4 tracking-[-0.07em]">
-                <motion.span 
-                  style={{ 
-                    y: useTransform(scrollY, [0, 500], [0, -20]),
-                    fontSize: "clamp(3rem, 10vw, 8rem)" 
-                  }} 
-                  className="inline-block"
-                >
-                  Digital
-                </motion.span>
-                <motion.span 
-                  style={{ 
-                    y: useTransform(scrollY, [0, 500], [0, 20]),
-                    fontSize: "clamp(3rem, 10vw, 8rem)" 
-                  }}
-                  className="inline-block transition-colors duration-700 italic pr-8"
-                >
-                  <span
-                    style={{ color: "#FF5C00", WebkitTextStroke: "1px #FF5C00" }}
-                    className="text-transparent"
-                  >
-                    Narratives
-                  </span>
-                </motion.span>
-                <motion.span 
-                  style={{ 
-                    y: useTransform(scrollY, [0, 500], [0, 60]),
-                    fontSize: "clamp(3rem, 10vw, 8rem)" 
-                  }} 
-                  className="inline-block"
-                >
-                  redefined.
-                </motion.span>
+              <div className="flex flex-col mt-4 tracking-[-0.07em] text-[clamp(2.5rem,8vw,6rem)]">
+                <span className="inline-block">Digital</span>
+                <span className="inline-block transition-colors duration-1000 italic pr-8 text-[#FF5C00] hover:text-white cursor-default text-shimmer">Narratives</span>
+                <span className="inline-block">redefined.</span>
               </div>
             </div>
           </motion.h1>
 
-          <div className="max-w-[650px] grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
-             <div className="md:col-span-1 hidden md:flex flex-col items-center gap-4 pt-2">
-                <div className="w-px h-24 bg-gradient-to-b from-[#FF5C00] to-transparent" />
+          <div className="max-w-[750px] flex gap-12 items-start">
+             <div className="hidden md:flex flex-col items-center gap-6 pt-4">
+                <div className="w-px h-40 bg-gradient-to-b from-[#FF5C00] via-[#FF5C00]/20 to-transparent" />
              </div>
 
-             <div className="md:col-span-11">
-                <p ref={subRef} className="text-2xl md:text-3xl leading-[1.3] mb-16 text-white/60 font-light tracking-tight max-w-xl">
-                  We bridge the gap between <span className="text-white font-medium border-b-2 border-[#FF5C00]/20 pb-1">technical precision</span> and the <span className="italic text-[#FF5C00]">raw soul</span> of a sketch to achieve <span className="text-white font-medium">absolute market dominance</span>.
+             <div className="flex flex-col">
+                <p ref={subRef} className="text-2xl md:text-3xl leading-[1.35] mb-20 text-white/80 font-light tracking-tight">
+                  Engineering the gap between <span className="text-[#FF5C00] font-medium underline decoration-[#FF5C00]/20 underline-offset-8">technical precision</span> and the <span className="italic text-white">raw soul</span> of a sketch to achieve <span className="text-white font-medium border-b border-white/20 px-2 pb-1 bg-white/5 rounded-lg">absolute dominance.</span>
                 </p>
 
-                 <div ref={ctaRef} className="flex flex-wrap items-center gap-12 mt-4">
-                  {/* Magnetic CTA */}
-                  <div className="flex flex-col items-start gap-4">
-                    <MagneticButton strength={25}>
+                <div ref={ctaRef} className="flex flex-wrap items-center gap-16">
+                  <div className="flex flex-col items-start gap-6">
+                    <MagneticButton strength={35}>
                       <a
                         href="#contact"
-                        className="group relative flex items-center gap-6 bg-black px-12 py-6 rounded-full overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_60px_rgba(255,92,0,0.25)] transition-shadow duration-500 glow-border-orange"
+                        className="group relative flex items-center gap-8 bg-white px-14 py-8 rounded-2xl overflow-hidden shadow-[0_30px_60px_rgba(255,92,0,0.15)] transition-all duration-700 hover:rounded-[3.5rem] hover:shadow-[0_40px_80px_rgba(255,92,0,0.3)]"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF5C00] to-[#FF8547] translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500" style={{ transitionTimingFunction: "cubic-bezier(0.19,1,0.22,1)" }} />
-                        <span className="relative z-10 text-white font-black text-sm uppercase tracking-[0.3em] group-hover:text-black transition-colors duration-500">Launch Project</span>
-                        <ArrowRight size={18} className="relative z-10 text-white group-hover:translate-x-2 group-hover:text-black transition-all duration-500" />
+                        <div className="absolute inset-0 bg-black translate-y-[101%] group-hover:translate-y-0 transition-transform duration-700 ease-[0.19,1,0.22,1]" />
+                        <span className="relative z-10 text-black font-black text-xs uppercase tracking-[0.4em] group-hover:text-[#FF5C00] transition-colors duration-500">Initialize Project</span>
+                        <MoveRight size={20} className="relative z-10 text-black group-hover:translate-x-4 group-hover:text-[#FF5C00] transition-all duration-700" />
                       </a>
                     </MagneticButton>
-                    <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-black/30 ml-2">Secure your slot for Q2</span>
-                  </div>
-                  
-                  <div className="flex flex-col">
-                     <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#FF5C00] mb-3 flex items-center gap-2">
-                        <div
-                          className="w-2.5 h-2.5 rounded-full bg-[#FF5C00]"
-                          style={{ boxShadow: "0 0 10px rgba(255,92,0,0.8), 0 0 20px rgba(255,92,0,0.4)", animation: "pulse 2s cubic-bezier(0.4,0,0.6,1) infinite" }}
-                        />
-                        Live Status
-                     </span>
-                     <p className="text-sm font-black text-black uppercase tracking-[0.15em] bg-black/5 px-6 py-2 rounded-full">Open for Conquest</p>
                   </div>
                 </div>
              </div>
           </div>
         </div>
 
-        <div className="lg:col-span-4 relative flex items-center justify-center">
-          <div className="absolute inset-0 border border-black/5 rounded-[8rem] bg-[#F8F8F8] -rotate-3 scale-90 translate-x-20 z-0" />
+        <div className="lg:col-span-4 relative hidden lg:flex items-center justify-center">
+          <div className="absolute inset-0 rounded-[8rem] bg-white/[0.02] border border-white/5 -rotate-6 scale-95 translate-x-16 z-0" />
+          <div className="absolute inset-0 rounded-[8rem] bg-[#FF5C00]/5 border border-[#FF5C00]/10 rotate-3 scale-90 -translate-x-8 z-0" />
+          
           <motion.div
             ref={assetRef}
             style={{ rotateZ: assetRotate }}
-            className="relative w-full aspect-square scale-125 will-change-transform z-10 rounded-[10rem] overflow-hidden bg-white/50 backdrop-blur-sm border border-black/5 ink-filter shadow-2xl"
+            className="relative w-full aspect-square z-10 rounded-[10rem] overflow-hidden bg-white/[0.08] backdrop-blur-3xl border border-white/20 shadow-[0_80px_160px_rgba(0,0,0,0.8)] flex items-center justify-center glow-border-orange group"
           >
-            <div className="absolute inset-0 bg-[#FF5C00]/5 blur-[150px] rounded-full" />
-            <Hero3DAsset />
+            <div className="absolute inset-0 bg-[#FF5C00]/10 blur-[120px] rounded-full animate-pulse group-hover:bg-[#FF5C00]/25 transition-colors duration-1000" />
+            <div className="relative w-[85%] h-[85%] flex items-center justify-center transform transition-transform duration-1000 group-hover:scale-105 z-20">
+               <Hero3DAsset />
+            </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Scroll Hint */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-20 hover:opacity-100 transition-opacity cursor-pointer"
-        onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-      >
-        <span className="text-[9px] font-black uppercase tracking-[0.6em] text-black">Scroll to Explore</span>
-        <div className="w-px h-12 bg-gradient-to-b from-black to-transparent" />
-      </motion.div>
 
-      {/* Purged Coordinates per user request */}
+
     </section>
   );
 }
-
-// Purged internal MagneticButton per user request
-

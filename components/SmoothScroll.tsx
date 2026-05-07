@@ -1,6 +1,8 @@
 "use client";
 import { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function SmoothScroll() {
   useEffect(() => {
@@ -15,25 +17,18 @@ export default function SmoothScroll() {
       infinite: false,
     });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    // Connect Lenis to ScrollTrigger
+    lenis.on("scroll", ScrollTrigger.update);
 
-    requestAnimationFrame(raf);
-
-    // GSAP ScrollTrigger Integration
-    lenis.on("scroll", () => {
-      // Refresh ScrollTrigger so pinning works correctly with Lenis
-      import("gsap").then(({ default: gsap }) => {
-        import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
-          ScrollTrigger.update();
-        });
-      });
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
     });
+
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
+      gsap.ticker.remove(lenis.raf);
     };
   }, []);
 

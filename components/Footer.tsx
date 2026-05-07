@@ -90,23 +90,31 @@ export default function Footer() {
             <span className="italic text-white" style={{ WebkitTextStroke: "2px #0A0A0A" }}>the future.</span>
           </h2>
 
-          {/* Email link */}
           <MagneticButton strength={40}>
-            <motion.a
-              href="mailto:mellowcodestudios@gmail.com"
+            <motion.div
               whileHover={{ x: 10 }}
-              className="group inline-flex flex-col gap-3 text-4xl md:text-6xl font-black text-black hover:text-white transition-all duration-700"
+              className="group flex flex-col gap-3"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              <span className="text-[11px] font-bold uppercase tracking-[0.4em] opacity-40">Direct Line</span>
-              <div className="flex items-center gap-8">
+              <span className="text-[11px] font-bold uppercase tracking-[0.4em] text-black/40">Direct Line</span>
+              
+              <a 
+                href="mailto:mellowcodestudios@gmail.com"
+                className="flex items-center gap-8 text-4xl md:text-6xl font-black text-black hover:text-white transition-all duration-700"
+              >
                 mellowcodestudios@gmail.com
                 <div className="w-16 h-16 rounded-full border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all duration-500">
                   <ArrowRight size={28} />
                 </div>
-              </div>
-              <p className="text-black/30 text-xl font-bold mt-4 tracking-widest">+91 9695996753</p>
-            </motion.a>
+              </a>
+
+              <a 
+                href="tel:+919695996753" 
+                className="text-black/50 text-xl font-bold mt-4 tracking-widest hover:text-white transition-colors duration-500 block w-max"
+              >
+                +91 9695996753
+              </a>
+            </motion.div>
           </MagneticButton>
         </div>
 

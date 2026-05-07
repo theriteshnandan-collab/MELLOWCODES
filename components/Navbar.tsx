@@ -59,7 +59,7 @@ export default function Navbar() {
                <span className="relative z-10 text-white font-black text-xs tracking-tighter">MC</span>
             </div>
             <div className="flex flex-col">
-                <span className="font-black text-sm uppercase tracking-[0.25em] text-[#0A0A0A]">
+                <span className={`font-black text-sm uppercase tracking-[0.25em] transition-colors duration-500 ${scrolled ? 'text-[#0A0A0A]' : 'text-white'}`}>
                   Mellow Code Studios
                 </span>
                 <span className="text-[8px] font-bold uppercase tracking-[0.5em] text-[#FF5C00] opacity-0 group-hover:opacity-100 transition-opacity">
@@ -72,7 +72,7 @@ export default function Navbar() {
           <nav className="hidden lg:flex items-center gap-12">
             {links.map((l, i) => (
               <a key={l.label} href={l.href}
-                className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/30 hover:text-[#0A0A0A] transition-all relative group flex items-center gap-2"
+                className={`text-[10px] font-bold uppercase tracking-[0.4em] transition-all relative group flex items-center gap-2 ${scrolled ? 'text-black/30 hover:text-[#0A0A0A]' : 'text-white/50 hover:text-white'}`}
               >
                 <Plus size={8} className="text-[#FF5C00] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
                 {l.label}
@@ -96,7 +96,7 @@ export default function Navbar() {
             </MagneticButton>
           </div>
 
-          <button className="lg:hidden p-4 bg-black/5 rounded-full text-black" onClick={() => setOpen(!open)}>
+          <button className={`lg:hidden p-4 rounded-full transition-all duration-500 ${scrolled ? 'bg-black/5 text-black' : 'bg-white/10 text-white border border-white/20'}`} onClick={() => setOpen(!open)}>
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>

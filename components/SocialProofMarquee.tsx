@@ -39,9 +39,9 @@ const MarqueeRow = ({
                     fontFamily: "var(--font-space-grotesk)",
                     fontSize: "clamp(2rem, 5vw, 5rem)",
                     // Alternate filled vs outline for visual rhythm
-                    color: i % 2 === 0 ? "transparent" : "rgba(10,10,10,0.07)",
+                    color: i % 2 === 0 ? "transparent" : "rgba(10,10,10,0.15)",
                     WebkitTextStroke: i % 2 === 0
-                      ? "1.5px rgba(255,92,0,0.25)"
+                      ? "1.5px rgba(255,92,0,0.4)"
                       : "none",
                   }}
                 >
