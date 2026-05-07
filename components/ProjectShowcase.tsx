@@ -161,7 +161,7 @@ export default function ProjectShowcase() {
                          src={p.img} 
                          alt={p.title} 
                          fill 
-                         className="object-contain ink-filter drop-shadow-[0_40px_80px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_60px_100px_rgba(255,92,0,0.25)] transition-all duration-1000"
+                         className="object-contain ink-filter drop-shadow-[0_40px_80px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_60px_100px_rgba(255,92,0,0.25)] transition-all duration-1000 rounded-3xl"
                          quality={95}
                        />
                     </div>
