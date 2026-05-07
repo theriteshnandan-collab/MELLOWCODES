@@ -153,20 +153,22 @@ export default function ProjectShowcase() {
                     </div>
                 </div>
 
-                <div className="relative flex-grow flex items-center justify-center overflow-hidden rounded-3xl bg-white border border-black/5 p-6 md:p-8 min-h-[150px]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#FF5C00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                  <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-1000 ease-out">
-                     <Image 
-                       src={p.img} 
-                       alt={p.title} 
-                       fill 
-                       className="object-cover md:object-contain ink-filter drop-shadow-[0_40px_80px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_60px_100px_rgba(255,92,0,0.25)] transition-all duration-1000 rounded-[1.5rem]"
-                       quality={95}
-                     />
+                <div className="relative flex-grow flex items-center justify-center overflow-hidden min-h-[150px]">
+                  <div className="relative w-[85%] md:w-[75%] lg:w-[65%] aspect-square rounded-3xl bg-white border border-black/5 flex items-center justify-center p-6 md:p-8 shadow-sm">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#FF5C00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-3xl" />
+                    <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-1000 ease-out">
+                       <Image 
+                         src={p.img} 
+                         alt={p.title} 
+                         fill 
+                         className="object-contain ink-filter drop-shadow-[0_40px_80px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_60px_100px_rgba(255,92,0,0.25)] transition-all duration-1000"
+                         quality={95}
+                       />
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-4 mt-6 md:mt-8 px-2">
+                <div className="flex flex-col gap-4 mt-6 md:mt-8 pl-4 md:pl-6 pr-2">
                    <p className="text-black/60 text-sm md:text-base lg:text-lg leading-relaxed font-medium">
                       {p.desc}
                    </p>
