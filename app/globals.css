@@ -6,11 +6,11 @@
    ================================================================ */
 
 :root {
-  /* === BACKGROUNDS (Light Mode focus) === */
-  --bg-0: #FFFFFF;
-  --bg-1: #F8F8F8;
-  --bg-2: #F2F2F2;
-  --bg-3: #EBEBEB;
+  /* === BACKGROUNDS (Matte Black Focus) === */
+  --bg-0: #111111;
+  --bg-1: #181818;
+  --bg-2: #222222;
+  --bg-3: #2A2A2A;
 
   /* === COSMIC ORANGE === */
   --orange-9: #CC4A00;
@@ -27,10 +27,10 @@
   --white:    #FFFFFF;
 
   /* === TEXT === */
-  --text-main:  #0A0A0A;
-  --text-muted: rgba(10, 10, 10, 0.55);
-  --text-dim:   rgba(10, 10, 10, 0.25);
-  --line:       rgba(10, 10, 10, 0.06);
+  --text-main:  #FFFFFF;
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --text-dim:   rgba(255, 255, 255, 0.3);
+  --line:       rgba(255, 255, 255, 0.1);
 
   /* === GRADIENTS === */
   --grad-brand:  linear-gradient(135deg, #FF5C00 0%, #FF8547 100%);

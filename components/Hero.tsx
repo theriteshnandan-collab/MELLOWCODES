@@ -75,7 +75,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-[110vh] flex items-center overflow-hidden bg-white"
+      className="relative min-h-[110vh] flex items-center overflow-hidden bg-[#111111]"
     >
       <motion.div 
         className="absolute inset-0 pointer-events-none speed-lines"
@@ -102,24 +102,66 @@ export default function Hero() {
               y: titleY, 
               scale: titleScale,
               fontFamily: "var(--font-space-grotesk)", 
-              fontSize: "clamp(5rem, 15vw, 14rem)" 
             }}
-            className="font-black leading-[0.78] tracking-[-0.07em] mb-16 text-[#0A0A0A] text-balance"
+            className="font-black leading-[0.8] mb-16 text-white"
           >
-            <motion.span style={{ y: useTransform(scrollY, [0, 500], [0, -80]) }} className="inline-block">MELLOWCODE</motion.span><br />
-            <motion.span style={{ y: useTransform(scrollY, [0, 500], [0, -40]) }} className="inline-block">Digital</motion.span><br />
-            <motion.span 
-              style={{ y: useTransform(scrollY, [0, 500], [0, 15]) }}
-              className="inline-block transition-colors duration-700 italic pr-8"
-            >
-              <span
-                style={{ color: "#FF5C00", WebkitTextStroke: "1px #FF5C00" }}
-                className="text-transparent"
+            <div className="flex flex-col">
+              <motion.span 
+                style={{ 
+                  y: useTransform(scrollY, [0, 500], [0, -100]),
+                  fontSize: "clamp(5rem, 16vw, 15rem)",
+                  color: "#AD2524"
+                }} 
+                className="inline-block italic tracking-[-0.15em]"
               >
-                Narratives
-              </span>
-            </motion.span><br />
-            <motion.span style={{ y: useTransform(scrollY, [0, 500], [0, 80]) }} className="inline-block">redefined.</motion.span>
+                MELLOW
+              </motion.span>
+              <motion.span 
+                style={{ 
+                  y: useTransform(scrollY, [0, 500], [0, -60]),
+                  fontSize: "clamp(5rem, 16vw, 15rem)",
+                  color: "#AD2524"
+                }} 
+                className="inline-block italic tracking-[-0.15em]"
+              >
+                CODE
+              </motion.span>
+              
+              <div className="flex flex-col mt-4 tracking-[-0.07em]">
+                <motion.span 
+                  style={{ 
+                    y: useTransform(scrollY, [0, 500], [0, -20]),
+                    fontSize: "clamp(3rem, 10vw, 8rem)" 
+                  }} 
+                  className="inline-block"
+                >
+                  Digital
+                </motion.span>
+                <motion.span 
+                  style={{ 
+                    y: useTransform(scrollY, [0, 500], [0, 20]),
+                    fontSize: "clamp(3rem, 10vw, 8rem)" 
+                  }}
+                  className="inline-block transition-colors duration-700 italic pr-8"
+                >
+                  <span
+                    style={{ color: "#FF5C00", WebkitTextStroke: "1px #FF5C00" }}
+                    className="text-transparent"
+                  >
+                    Narratives
+                  </span>
+                </motion.span>
+                <motion.span 
+                  style={{ 
+                    y: useTransform(scrollY, [0, 500], [0, 60]),
+                    fontSize: "clamp(3rem, 10vw, 8rem)" 
+                  }} 
+                  className="inline-block"
+                >
+                  redefined.
+                </motion.span>
+              </div>
+            </div>
           </motion.h1>
 
           <div className="max-w-[650px] grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
@@ -128,8 +170,8 @@ export default function Hero() {
              </div>
 
              <div className="md:col-span-11">
-                <p ref={subRef} className="text-2xl md:text-3xl leading-[1.3] mb-16 text-black/60 font-light tracking-tight max-w-xl">
-                  We bridge the gap between <span className="text-black font-medium border-b-2 border-[#FF5C00]/20 pb-1">technical precision</span> and the <span className="italic text-[#FF5C00]">raw soul</span> of a sketch to achieve <span className="text-black font-medium">absolute market dominance</span>.
+                <p ref={subRef} className="text-2xl md:text-3xl leading-[1.3] mb-16 text-white/60 font-light tracking-tight max-w-xl">
+                  We bridge the gap between <span className="text-white font-medium border-b-2 border-[#FF5C00]/20 pb-1">technical precision</span> and the <span className="italic text-[#FF5C00]">raw soul</span> of a sketch to achieve <span className="text-white font-medium">absolute market dominance</span>.
                 </p>
 
                  <div ref={ctaRef} className="flex flex-wrap items-center gap-12 mt-4">
