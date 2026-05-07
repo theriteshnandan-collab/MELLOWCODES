@@ -24,7 +24,8 @@ const milestones = [
   }
 ];
 
-// Animated counter hook
+const SMOOTH_EASE = [0.19, 1, 0.22, 1] as const;
+
 function useCountUp(target: number, duration: number = 2000, triggered: boolean = false) {
   const [count, setCount] = useState(0);
 
@@ -34,7 +35,6 @@ function useCountUp(target: number, duration: number = 2000, triggered: boolean 
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(eased * target));
       if (progress < 1) requestAnimationFrame(step);
@@ -48,7 +48,7 @@ function useCountUp(target: number, duration: number = 2000, triggered: boolean 
 function AnimatedStat({ value, label, suffix = "" }: { value: number; label: string; suffix?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const count = useCountUp(value, 2200, inView);
+  const count = useCountUp(value, 2500, inView);
 
   return (
     <div ref={ref} className="flex flex-col">
@@ -58,7 +58,7 @@ function AnimatedStat({ value, label, suffix = "" }: { value: number; label: str
       >
         {count}{suffix}
       </span>
-      <span className="text-[10px] font-bold uppercase tracking-widest text-black/40 mt-1">
+      <span className="text-[12px] font-bold uppercase tracking-widest text-black/60 mt-1">
         {label}
       </span>
     </div>
@@ -69,35 +69,30 @@ export default function AboutTimeline() {
   return (
     <section id="about" className="py-60 bg-white relative overflow-hidden">
 
-      {/* Background Ghost Label */}
-      <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 opacity-[0.02] pointer-events-none select-none overflow-hidden">
+      <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 opacity-[0.05] pointer-events-none select-none overflow-hidden">
         <span className="text-[30vw] font-black uppercase tracking-[0.2em] text-black whitespace-nowrap">
           STUDIO DNA // 2021-2025
         </span>
       </div>
 
       <div className="max-w-[1600px] mx-auto px-6 lg:px-32 relative z-10">
-
         <div className="grid lg:grid-cols-12 gap-24 items-start">
 
-          {/* Left: Manifesto */}
           <div className="lg:col-span-5">
             <div className="flex items-center gap-4 mb-10">
               <div className="w-12 h-px bg-[#FF5C00]" />
-              {/* Purged Our Architecture label */}
             </div>
             <h2
               className="text-7xl md:text-[9rem] font-black text-black leading-[0.8] tracking-tighter mb-12"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
               The<br />
-              <span className="italic text-black/5" style={{ WebkitTextStroke: "1px #0A0A0A" }}>DNA.</span>
+              <span className="italic text-black/10" style={{ WebkitTextStroke: "1px #0A0A0A" }}>DNA.</span>
             </h2>
-            <p className="text-black/60 text-xl md:text-2xl font-light leading-relaxed mb-20 max-w-lg">
+            <p className="text-black/80 text-xl md:text-2xl font-light leading-relaxed mb-20 max-w-lg">
               We settle for nothing less than <span className="text-black font-medium border-b-2 border-[#FF5C00]/20 pb-1">absolute market dominance</span>. Every project is a technical conquest where every pixel is intentional.
             </p>
 
-            {/* Animated Stats */}
             <div className="flex flex-wrap items-center gap-10 pt-10 border-t border-black/5">
               <AnimatedStat value={50} suffix="+" label="Projects Conquered" />
               <div className="hidden md:block w-px h-12 bg-black/10" />
@@ -107,19 +102,17 @@ export default function AboutTimeline() {
             </div>
           </div>
 
-          {/* Right: Timeline Grid */}
           <div className="lg:col-span-7 flex flex-col pt-12 lg:pt-0 pl-0 lg:pl-12">
             {milestones.map((m, i) => (
               <motion.div
                 key={m.year}
                 initial={{ opacity: 0, x: 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.5, delay: i * 0.2, ease: SMOOTH_EASE as any }}
                 viewport={{ once: true }}
                 className="group relative flex gap-8 md:gap-16 pb-20 border-l-2 border-black/5 ml-4 pl-10 md:pl-16 last:border-transparent last:pb-0"
               >
-                {/* Minimalist Timeline Dot */}
-                <div className="absolute top-0 left-[-6px] w-[10px] h-[10px] rounded-full bg-black/20 group-hover:bg-[#FF5C00] group-hover:scale-150 transition-all duration-500 shadow-[0_0_0_6px_white]" />
+                <div className="absolute top-0 left-[-6px] w-[10px] h-[10px] rounded-full bg-black/20 group-hover:bg-[#FF5C00] group-hover:scale-150 transition-all duration-700 shadow-[0_0_0_6px_white]" />
                 
                 <div className="flex-shrink-0 w-24 md:w-32 -mt-4">
                    <span 
@@ -137,7 +130,7 @@ export default function AboutTimeline() {
                   >
                     {m.title}
                   </h3>
-                  <p className="text-black/50 text-base md:text-lg leading-relaxed max-w-md font-medium">
+                  <p className="text-black/70 text-base md:text-lg leading-relaxed max-w-md font-medium">
                     {m.desc}
                   </p>
                 </div>
