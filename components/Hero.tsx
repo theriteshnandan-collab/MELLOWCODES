@@ -106,7 +106,8 @@ export default function Hero() {
             }}
             className="font-black leading-[0.78] tracking-[-0.07em] mb-16 text-[#0A0A0A] text-balance"
           >
-            <motion.span style={{ y: useTransform(scrollY, [0, 500], [0, -50]) }} className="inline-block">Digital</motion.span><br />
+            <motion.span style={{ y: useTransform(scrollY, [0, 500], [0, -80]) }} className="inline-block">MELLOWCODE</motion.span><br />
+            <motion.span style={{ y: useTransform(scrollY, [0, 500], [0, -40]) }} className="inline-block">Digital</motion.span><br />
             <motion.span 
               style={{ y: useTransform(scrollY, [0, 500], [0, 15]) }}
               className="inline-block transition-colors duration-700 italic pr-8"
